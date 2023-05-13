@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost:3306/chess
+    password: root
+    username: root
+#  data:
+#    mongodb:
+#      database: chess
+#      password: root
+#      host: mongodb+srv://root:${spring.data.mongodb.password}@chess.ialyzvk.mongodb.net/?retryWrites=true&w=majority
+
