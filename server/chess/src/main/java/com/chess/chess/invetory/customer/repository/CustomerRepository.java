@@ -13,9 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.time.LocalDateTime;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Repository
 @DependsOn({"flyway", "flywayInitializer"})
@@ -100,5 +98,45 @@ public class CustomerRepository extends NamedParameterJdbcDaoSupport
                     details
             );
         }));
+    }
+
+
+    public List<Customer> getAllCustomers()
+    {
+        final String sql = """
+                SELECT c.id AS customer_id,
+                       username,
+                       email,
+                       registration_date,
+                       name,
+                       last_name,
+                       birth_date,
+                       city
+                FROM customer c
+                         JOIN customer_details cd ON c.id = cd.customer_id;
+                """;
+
+        final List<Customer> result = new ArrayList<>();
+
+        Objects.requireNonNull(getNamedParameterJdbcTemplate()).query(sql, Collections.emptyMap(), (rs, rowNum) -> {
+            final CustomerDetails details = new CustomerDetails(
+                    rs.getLong("customer_id"),
+                    rs.getString("name"),
+                    rs.getString("last_name"),
+                    rs.getTimestamp("birth_date").toLocalDateTime().toLocalDate(),
+                    rs.getString("city")
+            );
+
+            result.add(new Customer(
+                    rs.getLong("customer_id"),
+                    rs.getString("username"),
+                    rs.getString("email"),
+                    rs.getTimestamp("registration_date").toLocalDateTime(),
+                    details
+            ));
+            return null;
+        });
+
+        return result;
     }
 }
