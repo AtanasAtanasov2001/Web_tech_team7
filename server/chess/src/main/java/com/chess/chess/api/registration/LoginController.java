@@ -1,4 +1,4 @@
-package com.chess.chess.registration;
+package com.chess.chess.api.registration;
 
 import com.chess.chess.security.Hashing;
 import com.chess.chess.security.JWTUtils;
@@ -27,7 +27,7 @@ public class LoginController
     {
         try {
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authRequest.username(), authRequest.password()));
+                    new UsernamePasswordAuthenticationToken(authRequest.username(), Hashing.generateStoringPasswordHash(authRequest.password())));
 
         } catch (Exception e) {
             throw new RuntimeException("Invalid username or password", e);
@@ -36,7 +36,7 @@ public class LoginController
         return new Token(jwtUtil.generateToken(authRequest.username()));
     }
 
-    @PostMapping(value = "/test")
+    @PostMapping(value = "/skinny")
     public Token generateToken(@RequestParam String username, @RequestParam String password)
     {
         try {
@@ -47,7 +47,7 @@ public class LoginController
             throw new RuntimeException("Invalid username or password", e);
         }
 
-        return new Token(jwtUtil.generateToken("blago"));
+        return new Token(jwtUtil.generateToken(username));
     }
 
 }

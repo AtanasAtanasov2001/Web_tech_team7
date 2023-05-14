@@ -26,7 +26,7 @@ public class CustomerService
         this.customerRepository = customerRepository;
     }
 
-    public void createCustomer(final CustomerRequest customerRequest, final CustomerDetailsRequest customerDetailsRequest)
+    public Long createCustomer(final CustomerRequest customerRequest, final CustomerDetailsRequest customerDetailsRequest)
     {
         final String passwordHash = Hashing.generateStoringPasswordHash(customerRequest.password());
 
@@ -40,6 +40,7 @@ public class CustomerService
 
         logger.info("Customer created: " + customer);
 
+        return customerId;
     }
 
     public User getUser(String username, String password)

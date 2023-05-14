@@ -35,7 +35,7 @@ public class Filter extends OncePerRequestFilter
         String token = null;
         String userName = null;
         if (authorizationHeader != null && authorizationHeader.startsWith(JWTUtils.secret)) {
-            token = authorizationHeader.substring(10);
+            token = authorizationHeader.substring(JWTUtils.secret.length());
             userName = jwtUtil.extractUsername(token);
         }
 

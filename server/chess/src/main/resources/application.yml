@@ -1,4 +1,9 @@
 spring:
+  application:
+    name: chess
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
   datasource:
     url: jdbc:mariadb://localhost:3306/chess
     password: root

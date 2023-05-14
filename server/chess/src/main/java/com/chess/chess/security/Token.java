@@ -2,10 +2,10 @@ package com.chess.chess.security;
 
 public class Token
 {
-    public final String jwtLoginToken;
+    public final String token;
 
-    public Token(String jwtLoginToken)
+    public Token(String token)
     {
-        this.jwtLoginToken = jwtLoginToken;
+        this.token = token;
     }
 }
