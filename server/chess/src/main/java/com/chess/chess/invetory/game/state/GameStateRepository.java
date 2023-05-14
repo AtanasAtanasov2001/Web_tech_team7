@@ -52,7 +52,7 @@ public class GameStateRepository extends NamedParameterJdbcDaoSupport
         Objects.requireNonNull(getNamedParameterJdbcTemplate()).update(sql, params);
     }
 
-    public String getLastStateForGame(UUID game_id)
+    public String getLastStateForGame(String game_id)
     {
         final String sql = """
                 SELECT state
@@ -63,7 +63,7 @@ public class GameStateRepository extends NamedParameterJdbcDaoSupport
                 """;
 
         final MapSqlParameterSource params = new MapSqlParameterSource()
-                .addValue("game_id", game_id.toString());
+                .addValue("game_id", game_id);
 
         return Objects.requireNonNull(getNamedParameterJdbcTemplate()).queryForObject(sql, params, String.class);
     }

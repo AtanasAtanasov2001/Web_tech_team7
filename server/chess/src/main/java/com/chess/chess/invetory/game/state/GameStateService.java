@@ -22,13 +22,15 @@ public class GameStateService
         repository.onGameCreation(stateUUID, gameUUID, request.getBlackId(), request.getState());
     }
 
-    public void update(GameState gameState)
+    public String update(GameState gameState)
     {
         final UUID stateUUID = UUID.randomUUID();
         repository.update(gameState, stateUUID);
+
+        return gameState.getGameId();
     }
 
-    public String getLastStateForGame(UUID game_id)
+    public String getLastStateForGame(String game_id)
     {
         return repository.getLastStateForGame(game_id);
     }

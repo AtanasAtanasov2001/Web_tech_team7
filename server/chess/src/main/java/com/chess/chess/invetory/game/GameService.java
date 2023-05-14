@@ -30,4 +30,9 @@ public class GameService
 
         return gameUUID.toString();
     }
+
+    public Game getGameById(String id)
+    {
+        return repository.getGameById(id);
+    }
 }

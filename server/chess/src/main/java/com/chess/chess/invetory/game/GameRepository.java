@@ -37,4 +37,24 @@ public class GameRepository extends NamedParameterJdbcDaoSupport
         Objects.requireNonNull(getNamedParameterJdbcTemplate()).update(sql, params);
 
     }
+
+    public Game getGameById(String id)
+    {
+        final String sql = """
+                SELECT g.white_id AS white_id,
+                       g.black_id AS black_id,
+                       g.id       AS id,
+                       gs.state   AS state
+                FROM game g
+                         JOIN game_state gs ON g.id = gs.game_id
+                WHERE g.id = :id
+                ORDER BY gs.time_updated DESC
+                LIMIT 1;
+                """;
+
+        final MapSqlParameterSource params = new MapSqlParameterSource()
+                .addValue("id", id);
+
+        return Objects.requireNonNull(getNamedParameterJdbcTemplate()).queryForObject(sql, params, new GameRowmapper());
+    }
 }

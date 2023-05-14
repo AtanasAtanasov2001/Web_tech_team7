@@ -27,9 +27,16 @@ public class RegistrationController
     }
 
     @PostMapping("/skinny")
-    public Long test(@RequestParam String username, @RequestParam String email, @RequestParam String password)
+    public Long unknown(@RequestBody AuthRequest authRequest)
     {
-        return customerService.createCustomer(new CustomerRequest(username, email, password), new CustomerDetailsRequest("test", "test", LocalDate.now(), "test"));
+        return customerService.createCustomer(
+                new CustomerRequest(
+                        authRequest.username(),
+                "unknown", authRequest.password()),
+                new CustomerDetailsRequest(
+                        "unknown",
+                        "unknown",
+                        LocalDate.now(), "unknown"));
 
     }
 }

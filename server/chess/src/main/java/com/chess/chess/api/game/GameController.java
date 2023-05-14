@@ -1,10 +1,8 @@
 package com.chess.chess.api.game;
 
+import com.chess.chess.invetory.game.Game;
 import com.chess.chess.invetory.game.GameService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "game")
@@ -20,7 +18,12 @@ public class GameController
     @PostMapping
     public String createGame(@RequestBody GameCreateRequest request)
     {
-        String game = gameService.createGame(request);
-        return game;
+        return gameService.createGame(request);
+    }
+
+    @GetMapping("/{id}")
+    public Game getGameById(@PathVariable("id") String id)
+    {
+        return gameService.getGameById(id);
     }
 }

@@ -4,8 +4,27 @@ public class Game
 {
     private Long whiteId;
     private Long blackId;
-    private Long winnerId;
     private String id;
+
+    private String state;
+
+    public Game(Long whiteId, Long blackId, String id, String state)
+    {
+        this.whiteId = whiteId;
+        this.blackId = blackId;
+        this.id = id;
+        this.state = state;
+    }
+
+    public String getState()
+    {
+        return state;
+    }
+
+    public void setState(String state)
+    {
+        this.state = state;
+    }
 
     public Long getWhiteId()
     {
@@ -27,16 +46,6 @@ public class Game
         this.blackId = blackId;
     }
 
-    public Long getWinnerId()
-    {
-        return winnerId;
-    }
-
-    public void setWinnerId(Long winnerId)
-    {
-        this.winnerId = winnerId;
-    }
-
     public String getId()
     {
         return id;
@@ -53,8 +62,8 @@ public class Game
         return "Game{" +
                 "whiteId=" + whiteId +
                 ", blackId=" + blackId +
-                ", winnerId=" + winnerId +
-                ", Id='" + id + '\'' +
+                ", id='" + id + '\'' +
+                ", state='" + state + '\'' +
                 '}';
     }
 }
