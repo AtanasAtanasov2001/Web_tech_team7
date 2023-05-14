@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -19,9 +20,12 @@ import java.util.*;
 @DependsOn({"flyway", "flywayInitializer"})
 public class CustomerRepository extends NamedParameterJdbcDaoSupport
 {
+    private final CustomerRowMapper customerRowMapper;
+
     @Autowired
-    public CustomerRepository(DataSource dataSource)
+    public CustomerRepository(DataSource dataSource, CustomerRowMapper customerRowMapper)
     {
+        this.customerRowMapper = customerRowMapper;
         setDataSource(dataSource);
     }
 
@@ -46,7 +50,7 @@ public class CustomerRepository extends NamedParameterJdbcDaoSupport
     public void insertCustomerDetails(final CustomerDetailsRequest request, final Long customerId)
     {
         final String sql = """
-                INSERT INTO  customer_details (customer_id, name, last_name, birth_date, city) VALUES (customer_id, :name, last_name, :birth_date, :city );
+                INSERT INTO  customer_details (customer_id, name, last_name, birth_date, city) VALUES (:customer_id, :name, :last_name, :birth_date, :city );
                  """;
 
         final SqlParameterSource params = new MapSqlParameterSource()
@@ -80,24 +84,7 @@ public class CustomerRepository extends NamedParameterJdbcDaoSupport
 
         final Map<String, Object> params = Map.of("id", id);
 
-        return Optional.ofNullable(Objects.requireNonNull(getNamedParameterJdbcTemplate()).query(sql, params, rs -> {
-
-            final CustomerDetails details = new CustomerDetails(
-                    rs.getLong("customer_id"),
-                    rs.getString("name"),
-                    rs.getString("last_name"),
-                    rs.getTimestamp("birth_date").toLocalDateTime().toLocalDate(),
-                    rs.getString("city")
-            );
-
-            return new Customer(
-                    rs.getLong("customer_id"),
-                    rs.getString("username"),
-                    rs.getString("email"),
-                    rs.getTimestamp("registration_date").toLocalDateTime(),
-                    details
-            );
-        }));
+        return Optional.ofNullable(Objects.requireNonNull(getNamedParameterJdbcTemplate()).queryForObject(sql, params, customerRowMapper));
     }
 
 
@@ -138,5 +125,16 @@ public class CustomerRepository extends NamedParameterJdbcDaoSupport
         });
 
         return result;
+    }
+
+    public Optional<User> getUser(String username, String password)
+    {
+        final String sql = """
+                SELECT username, password FROM customer WHERE username = :username AND password = :password;
+                """;
+
+        final Map<String, Object> params = Map.of("username", username, "password", password);
+
+        return Optional.ofNullable(Objects.requireNonNull(getNamedParameterJdbcTemplate()).queryForObject(sql, params, (rs, rowNum) -> new User(rs.getString("username"), rs.getString("password"), Collections.emptyList())));
     }
 }

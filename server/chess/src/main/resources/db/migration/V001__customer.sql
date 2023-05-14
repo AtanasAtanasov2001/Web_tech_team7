@@ -7,6 +7,9 @@ CREATE TABLE customer
     registration_date DATETIME DEFAULT NOW(),
 
     PRIMARY KEY (id),
+
+    UNIQUE KEY (username),
+    UNIQUE KEY (email),
     INDEX customer_username_idx (username)
 );
 
@@ -19,10 +22,7 @@ CREATE TABLE customer_details
     birth_date  DATE         NOT NULL,
     city        VARCHAR(128),
 
-
     PRIMARY KEY (id),
-
     CONSTRAINT customer_details_customer_id_dk FOREIGN KEY (customer_id) REFERENCES customer (id),
-
     INDEX customer_details_customer_id_idx (customer_id)
 );

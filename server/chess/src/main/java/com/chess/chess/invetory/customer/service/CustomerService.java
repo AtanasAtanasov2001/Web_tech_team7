@@ -5,16 +5,19 @@ import com.chess.chess.invetory.customer.repository.CustomerDetailsRequest;
 import com.chess.chess.invetory.customer.repository.CustomerRepository;
 import com.chess.chess.invetory.customer.repository.CustomerRequest;
 import com.chess.chess.security.Hashing;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.security.NoSuchAlgorithmException;
+import java.time.LocalDateTime;
+import java.util.logging.Logger;
 
 @Service
 public class CustomerService
 {
     private final CustomerCacheService customerCacheService;
     private final CustomerRepository customerRepository;
+
+    private final Logger logger = Logger.getLogger(CustomerService.class.getName());
 
     public CustomerService(CustomerCacheService customerCacheService,
                            CustomerRepository customerRepository)
@@ -23,13 +26,11 @@ public class CustomerService
         this.customerRepository = customerRepository;
     }
 
-
-    @Transactional
-    public void createCustomer(final CustomerRequest customerRequest, final CustomerDetailsRequest customerDetailsRequest) throws NoSuchAlgorithmException
+    public void createCustomer(final CustomerRequest customerRequest, final CustomerDetailsRequest customerDetailsRequest)
     {
         final String passwordHash = Hashing.generateStoringPasswordHash(customerRequest.password());
 
-        final Long customerId = customerRepository.insertCustomer(customerRequest, passwordHash, null);
+        final Long customerId = customerRepository.insertCustomer(customerRequest, passwordHash, LocalDateTime.now());
 
         customerRepository.insertCustomerDetails(customerDetailsRequest, customerId);
 
@@ -37,5 +38,14 @@ public class CustomerService
 
         customerCacheService.reloadCustomer(customer);
 
+        logger.info("Customer created: " + customer);
+
+    }
+
+    public User getUser(String username, String password)
+    {
+        final String passwordHash = Hashing.generateStoringPasswordHash(password);
+        return customerRepository.getUser(username, passwordHash).orElseThrow();
     }
 }
+
