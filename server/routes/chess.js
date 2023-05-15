@@ -10,10 +10,13 @@ router.post('/move', validateMove, (req, res, next) => {
   const { move, gameId } = req;
 
   if ( move.valid ) {
-    gamesDAO.updateGame(gameId, { fen: move.after }).then((response) => {
-      console.log(response);
-      res.send(move);
-    });
+    // gamesDAO.updateGame(gameId, { fen: move.after }).then((response) => {
+    //   console.log(response);
+    //   res.send(move);
+    // });
+    gamesDAO.updateGame(gameId, { fen: move.after });
+    // console.log(move);
+    res.send(move);
   } else {
     res.status(400).send(move);
   }
