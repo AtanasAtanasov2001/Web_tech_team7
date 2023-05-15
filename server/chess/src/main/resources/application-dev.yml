@@ -5,8 +5,7 @@ spring:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
   datasource:
-    url: jdbc:mariadb://db_chess:3306/chess
+    url: jdbc:mariadb://localhost:13306/chess
     password: root
     username: root
 
-debug: off
