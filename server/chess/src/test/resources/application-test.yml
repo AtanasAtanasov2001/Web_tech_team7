@@ -8,5 +8,3 @@ spring:
     url: jdbc:mariadb://localhost:3306/chess
     password: root
     username: root
-
-debug: off

@@ -1,6 +1,7 @@
 package com.chess.chess.invetory.game;
 
 import com.chess.chess.api.game.GameCreateRequest;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -13,6 +14,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Repository
+@DependsOn({"flyway", "flywayInitializer"})
 public class GameRepository extends NamedParameterJdbcDaoSupport
 {
     public GameRepository(DataSource dataSource)
