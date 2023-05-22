@@ -29,14 +29,18 @@ public class RegistrationController
     @PostMapping("/skinny")
     public Long unknown(@RequestBody AuthRequest authRequest)
     {
-        return customerService.createCustomer(
-                new CustomerRequest(
-                        authRequest.username(),
-                "unknown", authRequest.password()),
-                new CustomerDetailsRequest(
-                        "unknown",
-                        "unknown",
-                        LocalDate.now(), "unknown"));
+        try {
+            return customerService.createCustomer(
+                    new CustomerRequest(
+                            authRequest.username(),
+                            authRequest.username() + authRequest.username(), authRequest.password()),
+                    new CustomerDetailsRequest(
+                            "unknown",
+                            "unknown",
+                            LocalDate.now(), "unknown"));
+        } catch (Exception e) {
+            return 409L;
+        }
 
     }
 }

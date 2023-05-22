@@ -8,7 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "customer-login")
+@RequestMapping(path = "registration/customer-login")
 public class LoginController
 {
 

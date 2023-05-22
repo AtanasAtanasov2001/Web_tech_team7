@@ -52,10 +52,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
     protected void configure(HttpSecurity http) throws Exception
     {
         http.csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/registration/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/customer-login/**").permitAll()
+                .antMatchers(HttpMethod.POST,"/registration/**").permitAll()
                 .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs", "/webjars/**").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest()
+                .authenticated()
                 .and()
                 .exceptionHandling()
                 .and()
