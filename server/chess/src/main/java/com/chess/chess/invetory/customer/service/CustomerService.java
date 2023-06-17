@@ -14,39 +14,45 @@ import java.util.logging.Logger;
 @Service
 public class CustomerService
 {
-    private final CustomerCacheService customerCacheService;
-    private final CustomerRepository customerRepository;
 
-    private final Logger logger = Logger.getLogger(CustomerService.class.getName());
+	private final CustomerCacheService customerCacheService;
+	private final CustomerRepository customerRepository;
 
-    public CustomerService(CustomerCacheService customerCacheService,
-                           CustomerRepository customerRepository)
-    {
-        this.customerCacheService = customerCacheService;
-        this.customerRepository = customerRepository;
-    }
+	private final Logger logger = Logger.getLogger(CustomerService.class.getName());
 
-    public Long createCustomer(final CustomerRequest customerRequest, final CustomerDetailsRequest customerDetailsRequest)
-    {
-        final String passwordHash = Hashing.generateStoringPasswordHash(customerRequest.password());
+	public CustomerService(CustomerCacheService customerCacheService,
+						   CustomerRepository customerRepository)
+	{
+		this.customerCacheService = customerCacheService;
+		this.customerRepository = customerRepository;
+	}
 
-        final Long customerId = customerRepository.insertCustomer(customerRequest, passwordHash, LocalDateTime.now());
+	public Long createCustomer(final CustomerRequest customerRequest, final CustomerDetailsRequest customerDetailsRequest)
+	{
+		final String passwordHash = Hashing.generateStoringPasswordHash(customerRequest.password());
 
-        customerRepository.insertCustomerDetails(customerDetailsRequest, customerId);
+		final Long customerId = customerRepository.insertCustomer(customerRequest, passwordHash, LocalDateTime.now());
 
-        final Customer customer = customerRepository.getCustomer(customerId).orElseThrow();
+		customerRepository.insertCustomerDetails(customerDetailsRequest, customerId);
 
-        customerCacheService.reloadCustomer(customer);
+		final Customer customer = customerRepository.getCustomer(customerId).orElseThrow();
 
-        logger.info("Customer created: " + customer);
+		customerCacheService.reloadCustomer(customer);
 
-        return customerId;
-    }
+		logger.info("Customer created: " + customer);
 
-    public User getUser(String username, String password)
-    {
-        final String passwordHash = Hashing.generateStoringPasswordHash(password);
-        return customerRepository.getUser(username, passwordHash).orElseThrow();
-    }
+		return customerId;
+	}
+
+	public Customer getById(final Long customerId)
+	{
+		return customerCacheService.getCustomer(customerId);
+	}
+
+	public User getUser(String username, String password)
+	{
+		final String passwordHash = Hashing.generateStoringPasswordHash(password);
+		return customerRepository.getUser(username, passwordHash).orElseThrow();
+	}
 }
 

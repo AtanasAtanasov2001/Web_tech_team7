@@ -12,9 +12,23 @@ function getUser(id) {
  * @param {object} data - object, containing the userName and password of the user
  * @returns {string} - user id
  */
-function createUser(data) {
-  // data.userName
-  // data.password
+async function createUser(data) {
+	const url = 'http://localhost:8080/registration/skinny';
+
+	const requestOptions = {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			username: data.username,
+			password: data.password
+		})
+	};
+
+	return await fetch(url, requestOptions)
+	.then(response => response.json())
+	.then(data => data.toString());
 }
 
 /**
