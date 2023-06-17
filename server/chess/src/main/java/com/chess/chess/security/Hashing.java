@@ -16,7 +16,7 @@ public class Hashing
     public static String generateStoringPasswordHash(String input)
     {
         try {
-            String hashtext = null;
+            String hashtext;
             input = "$%&#$)*@^%&()#@*%)#@salt%$%$%$%$" + input + "sa#$&#*)(%)(@%*#@)%&#@)#+#@$)_#@)$#@+lt";
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] messageDigest = md.digest(input.getBytes(StandardCharsets.UTF_8));
