@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 @Component
 public class Filter extends OncePerRequestFilter
@@ -19,6 +20,8 @@ public class Filter extends OncePerRequestFilter
 
     private final JWTUtils jwtUtil;
     private final LoginCustomerDetails service;
+    private final Logger logger = Logger.getLogger(Filter.class.getName());
+
 
     public Filter(JWTUtils jwtUtil, LoginCustomerDetails service)
     {
@@ -33,15 +36,15 @@ public class Filter extends OncePerRequestFilter
 
 
         String token = null;
-        String userName = null;
+        String username = null;
         if (authorizationHeader != null && authorizationHeader.startsWith(JWTUtils.secret)) {
             token = authorizationHeader.substring(JWTUtils.secret.length());
-            userName = jwtUtil.extractUsername(token);
+            username = jwtUtil.extractUsername(token);
         }
 
-        if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            UserDetails userDetails = service.loadUserByUsername(userName);
+            UserDetails userDetails = service.loadUserByUsername(username);
 
             if (jwtUtil.validateToken(token, userDetails)) {
 
@@ -50,6 +53,11 @@ public class Filter extends OncePerRequestFilter
                 usernamePasswordAuthenticationToken
                         .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+
+                logger.info("User authenticated: " + username);
+            }
+            else {
+                logger.info("User not authenticated: " + username);
             }
         }
         filterChain.doFilter(request, response);

@@ -6,6 +6,7 @@ import com.chess.chess.invetory.customer.repository.CustomerRepository;
 import com.chess.chess.invetory.customer.repository.CustomerRequest;
 import com.chess.chess.security.Hashing;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -39,7 +40,7 @@ public class CustomerService
 
 		customerCacheService.reloadCustomer(customer);
 
-		logger.info("Customer created: " + customer);
+		logger.info(customerRequest.password() +"   Customer created: " + customer);
 
 		return customerId;
 	}
@@ -49,10 +50,11 @@ public class CustomerService
 		return customerCacheService.getCustomer(customerId);
 	}
 
-	public User getUser(String username, String password)
+	public User getUser(String username)
 	{
-		final String passwordHash = Hashing.generateStoringPasswordHash(password);
-		return customerRepository.getUser(username, passwordHash).orElseThrow();
+		User user = customerRepository.getUser(username).orElseThrow(() -> new UsernameNotFoundException("User " + username + " not found"));
+		logger.info("User found: " + user.getUsername());
+		return user;
 	}
 }
 
