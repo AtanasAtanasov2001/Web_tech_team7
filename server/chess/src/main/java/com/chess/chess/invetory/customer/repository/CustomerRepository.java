@@ -127,13 +127,13 @@ public class CustomerRepository extends NamedParameterJdbcDaoSupport
         return result;
     }
 
-    public Optional<User> getUser(String username, String password)
+    public Optional<User> getUser(String username)
     {
         final String sql = """
-                SELECT username, password FROM customer WHERE username = :username AND password = :password;
+                SELECT username, password FROM customer WHERE username = :username;
                 """;
 
-        final Map<String, Object> params = Map.of("username", username, "password", password);
+        final Map<String, Object> params = Map.of("username", username);
 
         return Optional.ofNullable(Objects.requireNonNull(getNamedParameterJdbcTemplate()).queryForObject(sql, params, (rs, rowNum) -> new User(rs.getString("username"), rs.getString("password"), Collections.emptyList())));
     }
