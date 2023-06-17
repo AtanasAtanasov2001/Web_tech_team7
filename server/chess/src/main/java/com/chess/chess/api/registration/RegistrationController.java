@@ -6,6 +6,7 @@ import com.chess.chess.invetory.customer.service.CustomerService;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "registration")
@@ -29,10 +30,11 @@ public class RegistrationController
     @PostMapping("/skinny")
     public Long unknown(@RequestBody AuthRequest authRequest)
     {
+        UUID uuid = UUID.randomUUID();
         return customerService.createCustomer(
                 new CustomerRequest(
                         authRequest.username(),
-                "unknown", authRequest.password()),
+                uuid.toString(), authRequest.password()),
                 new CustomerDetailsRequest(
                         "unknown",
                         "unknown",
