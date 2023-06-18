@@ -45,7 +45,6 @@ public class GameStateRepository extends NamedParameterJdbcDaoSupport
         final MapSqlParameterSource params = new MapSqlParameterSource()
                 .addValue("id", uuid.toString())
                 .addValue("game_id", gameState.getGameId())
-                .addValue("player_id", gameState.getPlayerId())
                 .addValue("state", gameState.getState())
                 .addValue("time_updated", LocalDateTime.now());
 

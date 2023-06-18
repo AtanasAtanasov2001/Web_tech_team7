@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -56,5 +57,20 @@ public class GameRepository extends NamedParameterJdbcDaoSupport
                 .addValue("id", id);
 
         return Objects.requireNonNull(getNamedParameterJdbcTemplate()).queryForObject(sql, params, new GameRowmapper());
+    }
+
+    public List<Game> getAllGames()
+    {
+        final String sql = """
+                SELECT g.white_id AS white_id,
+                       g.black_id AS black_id,
+                       g.id       AS id,
+                       gs.state   AS state
+                FROM game g
+                         JOIN game_state gs ON g.id = gs.game_id
+                ORDER BY gs.time_updated DESC;
+                """;
+
+        return Objects.requireNonNull(getNamedParameterJdbcTemplate()).query(sql, new GameRowmapper());
     }
 }
