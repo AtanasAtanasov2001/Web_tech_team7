@@ -32,6 +32,13 @@ services:
     container_name: chess_client
     ports:
       - "3000:3000"
+    networks:
+      - mynetwork
+
+
+networks:
+  mynetwork:
+    driver: bridge
 
 volumes:
   mariadb_data:

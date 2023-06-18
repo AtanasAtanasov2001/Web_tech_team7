@@ -4,6 +4,8 @@ import com.chess.chess.invetory.game.Game;
 import com.chess.chess.invetory.game.GameService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "game")
 public class GameController
@@ -25,5 +27,11 @@ public class GameController
     public Game getGameById(@PathVariable("id") String id)
     {
         return gameService.getGameById(id);
+    }
+
+    @GetMapping
+    public List<Game> getAllGames()
+    {
+        return gameService.getAllGames();
     }
 }

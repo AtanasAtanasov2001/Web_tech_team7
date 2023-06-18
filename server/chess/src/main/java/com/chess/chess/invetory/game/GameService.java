@@ -4,6 +4,7 @@ import com.chess.chess.api.game.GameCreateRequest;
 import com.chess.chess.invetory.game.state.GameStateService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -34,5 +35,10 @@ public class GameService
     public Game getGameById(String id)
     {
         return repository.getGameById(id);
+    }
+
+    public List<Game> getAllGames()
+    {
+        return repository.getAllGames();
     }
 }
