@@ -1,6 +1,5 @@
 package com.chess.chess.invetory.customer;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Customer {

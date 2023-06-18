@@ -1,5 +1,18 @@
 version: '3.8'
 services:
+  maria:
+    image: mariadb:latest
+    restart: always
+    container_name: chess_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: chess
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - "13306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
   db_server:
     image: chess:arm64-latest
     container_name: chess_db_server
@@ -10,19 +23,8 @@ services:
       - maria
     links:
       - maria:db_chess
-  maria:
-    image: mariadb:latest
-    restart: always
-    container_name: db_chess
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: chess
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
-    ports:
-      - "13306:3306"
-    volumes:
-      - mariadb_data:/var/lib/mysql
+        DB_CHESS: chess_db:3306
   client:
     build:
       context: ./client
@@ -34,6 +36,17 @@ services:
       - "3000:3000"
     networks:
       - mynetwork
+    depends_on:
+      - db_server
+  validation:
+    image: validation:arm64-latest
+    container_name: chess_validation
+    ports:
+      - "4000:4000"
+    networks:
+      - mynetwork
+    depends_on:
+      - db_server
 
 
 networks:
