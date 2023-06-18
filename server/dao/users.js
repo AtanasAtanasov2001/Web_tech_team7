@@ -1,10 +1,19 @@
+const axios = require('axios');
+
 /**
  * get user
  * @param {string} id - user id
  * @returns {object} - object, containing the userName and password of the user
  */
 function getUser(id) {
-  // userId
+	const url = `http://localhost:8080/customer/${id}`;
+
+	return axios.get(url)
+		.then(res => res.data)
+		.catch(e => {
+			console.error(`ERROR: User id ${id} not found!`)
+			throw new Error(`User id ${id} not found!`);
+		});
 }
 
 /**
@@ -13,6 +22,7 @@ function getUser(id) {
  * @returns {string} - user id
  */
 async function createUser(data) {
+	// TODO: wrong
 	const url = 'http://localhost:8080/registration/skinny';
 
 	const requestOptions = {
@@ -41,6 +51,7 @@ function updateUser(id, data) {
   // userId
   // data.userName
   // data.password
+	// TODO:
 }
 
 const usersDAO = { getUser, createUser, updateUser }

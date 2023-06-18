@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
     "body-parser": "^1.20.2",
     "chess.js": "^1.0.0-beta.5",
     "express": "^4.18.2",
