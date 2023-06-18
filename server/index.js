@@ -17,26 +17,25 @@ const server = http.createServer(app);
 //   next();
 // });
 // app.use(cors());
-const io = require("socket.io")(server, {
-  cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"]
-  }
-});
+// const io = require("socket.io")(server, {
+//   cors: {
+//     origin: "http://localhost:3000",
+//     methods: ["GET", "POST"]
+//   }
+// });
 
+// io.on('connection', (socket) => {
+//   console.log('A user connected.');
 
-io.on('connection', (socket) => {
-  console.log('A user connected.');
+//   socket.on('chat message', (message) => {
+//     console.log('Received message:', message);
+//     io.emit('chat message', message); // Broadcast the message to all connected clients
+//   });
 
-  socket.on('chat message', (message) => {
-    console.log('Received message:', message);
-    io.emit('chat message', message); // Broadcast the message to all connected clients
-  });
-
-  socket.on('disconnect', () => {
-    console.log('A user disconnected.');
-  });
-});
+//   socket.on('disconnect', () => {
+//     console.log('A user disconnected.');
+//   });
+// });
 
 // routes
 const chess = require('./routes/chess');
