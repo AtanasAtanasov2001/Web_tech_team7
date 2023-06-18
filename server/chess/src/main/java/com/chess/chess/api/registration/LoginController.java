@@ -43,6 +43,7 @@ public class LoginController
     @PostMapping(value = "/skinny")
     public Token generateToken(@RequestParam String username, @RequestParam String password)
     {
+        logger.info("User login attempt: " + username);
         try {
             final var auth = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username, Hashing.generateStoringPasswordHash(password)));
