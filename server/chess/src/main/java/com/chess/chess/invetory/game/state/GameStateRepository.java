@@ -1,5 +1,6 @@
 package com.chess.chess.invetory.game.state;
 
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -10,6 +11,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Repository
+@DependsOn({"flyway", "flywayInitializer"})
 public class GameStateRepository extends NamedParameterJdbcDaoSupport
 {
     public GameStateRepository(DataSource dataSource)

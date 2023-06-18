@@ -1,6 +1,5 @@
 package com.chess.chess.api.registration;
 
-import com.chess.chess.invetory.customer.service.CustomerService;
 import com.chess.chess.security.Hashing;
 import com.chess.chess.security.JWTUtils;
 import com.chess.chess.security.Token;
