@@ -22,17 +22,16 @@ public class GameStateRepository extends NamedParameterJdbcDaoSupport
     }
 
 
-    public void onGameCreation(final UUID id, final UUID gameUUID, final Long playerId, final String state)
+    public void onGameCreation(final UUID id, final UUID gameUUID, final String state)
     {
         final String sql = """
-                INSERT INTO game_state (id, game_id, player_id, state, time_updated)
-                VALUES (:id, :game_id, :player_id, :state, :time_updated);
+                INSERT INTO game_state (id, game_id, state, time_updated)
+                VALUES (:id, :game_id, :state, :time_updated);
                 """;
 
         final MapSqlParameterSource params = new MapSqlParameterSource()
                 .addValue("id", id.toString())
                 .addValue("game_id", gameUUID.toString())
-                .addValue("player_id", playerId)
                 .addValue("state", state)
                 .addValue("time_updated", LocalDateTime.now());
 

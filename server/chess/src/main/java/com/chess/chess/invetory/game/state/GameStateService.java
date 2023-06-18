@@ -21,7 +21,7 @@ public class GameStateService
     {
         final UUID stateUUID = UUID.randomUUID();
 
-        repository.onGameCreation(stateUUID, gameUUID, request.getBlackId(), request.getState());
+        repository.onGameCreation(stateUUID, gameUUID, request.getState());
     }
 
     public String update(GameState gameState)
