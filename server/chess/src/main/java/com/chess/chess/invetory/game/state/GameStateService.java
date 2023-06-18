@@ -1,8 +1,10 @@
 package com.chess.chess.invetory.game.state;
 
 import com.chess.chess.api.game.GameCreateRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -30,8 +32,9 @@ public class GameStateService
         return gameState.getGameId();
     }
 
-    public String getLastStateForGame(String game_id)
+    public ResponseEntity<String> getLastStateForGame(String game_id)
     {
-        return repository.getLastStateForGame(game_id);
+        final Optional<String> state = repository.getLastStateForGame(game_id);
+        return state.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

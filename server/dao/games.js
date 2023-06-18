@@ -85,7 +85,6 @@ function updateGame(gameId, data) {
 
   let body = {
     "gameId": gameId,
-    "playerId": 1,
     "state": data.fen
   }
 
