@@ -1,8 +1,8 @@
 version: '3.8'
 services:
-  app:
+  db_server:
     image: chess:arm64-latest
-    container_name: chess-server
+    container_name: chess_db_server
     restart: always
     ports:
       - "8080:8080"
@@ -23,6 +23,15 @@ services:
       - "13306:3306"
     volumes:
       - mariadb_data:/var/lib/mysql
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    restart: always
+    image: client:arm64-latest
+    container_name: chess_client
+    ports:
+      - "3000:3000"
 
 volumes:
   mariadb_data:
