@@ -15,11 +15,11 @@ router.get('/test', validateMove, (req, res, next) => {
 });
 
 router.post('/move', validateMove, (req, res, next) => {
-    // TODO: Wrong auth tokjen will throww game id not found because get game state should not expect auth token.
+    //TODO: no auth does not throw err
     const {move, gameId} = req;
     const token = req.header('Authorization')
     if (move.valid) {
-        gamesDAO.getGame(gameId, token)
+        gamesDAO.getGame(gameId)
             .then(gamesDAO.updateGame(gameId, {fen: move.after, token}))
             .then(r => res.send(move))
             .catch(e => res.status(500).send(`${e}`));

@@ -18,17 +18,10 @@ const axios = require('axios');
  * @param {string} gameId - game id
  * @returns {object} - object containing user ids and game state
  */
-function getGame(gameId, token) {
-  // TODO: remove auth for this
+function getGame(gameId) {
   const url = `http://localhost:8080/state/${gameId}/currentState`;
 
-  let config = {
-    headers: {
-      'Authorization' : token
-    }
-  }
-
-	return axios.get(url, config)
+	return axios.get(url)
 		.then(res => {return {gameId, state: res.data}})
 		.catch(e => {
       console.error(`ERROR: Game id ${gameId} not found!`)
@@ -73,7 +66,6 @@ function createGame(data) {
  * @returns {string} - game id
  */
 function updateGame(gameId, data) {
-  // TODO: playerId in body not needed
   const url = `http://localhost:8080/state/update`;
 
   let config = {
