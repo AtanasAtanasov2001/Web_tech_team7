@@ -1,7 +1,7 @@
 const axios = require('axios');
 const TokenCache = require('./TokenCache');
 const tokenCache = new TokenCache();
-
+// TODO: tokenCache should not be init here
 
 /**
  * get user
@@ -44,19 +44,6 @@ async function createUser(data) {
         .then(data => data.toString());
 }
 
-/**
- * update user
- * @param {string} id - user id
- * @param {object} data - object, containing the userName and password of the user
- * @returns {string} - user id
- */
-function updateUser(id, data) {
-    // userId
-    // data.userName
-    // data.password
-    // TODO:
-}
-
 async function login(username, password) {
     let token = tokenCache.getToken(username);
 
@@ -80,6 +67,6 @@ async function login(username, password) {
     return token;
 }
 
-const usersDAO = {getUser, createUser, updateUser, login}
+const usersDAO = {getUser, createUser, login}
 
 module.exports = usersDAO;
