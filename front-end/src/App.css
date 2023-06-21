@@ -53,3 +53,23 @@ button.google:hover {
     align-items: center;
     margin-top: 40px;
 }
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Set the container height to 100% of the viewport height */
+    overflow: hidden; /* Hide any overflow content */
+  }
+  
+  .board {
+    width: 60%; /* Set the chessboard width to 100% */
+    height: 60%; /* Set the chessboard height to 100% */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Add any additional styling as needed */
+  
