@@ -14,6 +14,7 @@ const App = () => {
 
   return (
     <Container>
+      <h1 className="login-form">Head 2 head Chess</h1>
       {loggedIn ? <Game /> : <LoginForm handleLogin={handleLogin} />}
     </Container>
   );
