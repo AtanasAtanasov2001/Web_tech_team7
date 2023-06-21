@@ -36,9 +36,9 @@ function Game({ players, room, orientation, cleanup }) {
   );
 
   const handlePlayAgain = () => {
-    chess.reset(); // Reset the chess game
-    setFen(chess.fen()); // Update the fen state
-    setOver(""); // Clear the game over message
+    chess.reset(); 
+    setFen(chess.fen()); 
+    setOver(""); 
   };
 
   function onDrop(sourceSquare, targetSquare) {
@@ -67,7 +67,7 @@ function Game({ players, room, orientation, cleanup }) {
         handleContinue={() => {
           setOver("");
         }}
-        handlePlayAgain={handlePlayAgain} // Pass the handlePlayAgain function
+        handlePlayAgain={handlePlayAgain} 
         className="dialog"
       />
     </div>

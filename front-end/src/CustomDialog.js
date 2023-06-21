@@ -15,7 +15,7 @@ export default function CustomDialog({ open, children, title, contentText, handl
         </DialogContent>
         <DialogActions>
           <Button onClick={handleContinue}>Continue</Button>
-          <Button onClick={handlePlayAgain}>Play Again</Button> {/* Add Play Again button */}
+          <Button onClick={handlePlayAgain}>Play Again</Button> 
         </DialogActions>
       </Dialog>
     );

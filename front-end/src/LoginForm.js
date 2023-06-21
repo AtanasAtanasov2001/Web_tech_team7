@@ -10,11 +10,9 @@ const LoginForm = ({ handleLogin }) => {
   };
 
   const handleFacebookLogin = () => {
-    // Perform Facebook login logic
   };
 
   const handleGoogleLogin = () => {
-    // Perform Google login logic
   };
 
   return (

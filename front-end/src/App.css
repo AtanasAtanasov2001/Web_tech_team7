@@ -34,7 +34,7 @@ button.facebook {
     background-color: #3b5998;
     color: #fff;
     margin-bottom: 10px;
-    /* Add margin-bottom to create space */
+
 }
 
 button.google {
@@ -59,17 +59,17 @@ button.google:hover {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh; /* Set the container height to 100% of the viewport height */
-    overflow: hidden; /* Hide any overflow content */
+    height: 100vh; 
+    overflow: hidden; 
   }
   
   .board {
-    width: 60%; /* Set the chessboard width to 100% */
-    height: 60%; /* Set the chessboard height to 100% */
+    width: 60%; 
+    height: 60%; 
     display: flex;
     justify-content: center;
     align-items: center;
   }
   
-  /* Add any additional styling as needed */
+
   
