@@ -1,22 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import './App.css';
-import { gameSubject } from './Game'
-import Chessboard from './Chessboard'
+import { Container } from "@mui/material";
+import Game from "./Game";
 
-function App() {
-  const [board, setBoard] = useState([])
-  useEffect(() => {
-    const subscribe = gameSubject.subscribe(game => setBoard(game.board))
-    return () => subscribe.unsubscribe()
-  }, [])
-
+export default function App() {
   return (
-    <div className='container'>
-      <div className='board-container'>
-        <Chessboard board={board} />
-      </div>
-    </div>
-  )
+    <Container>
+      <Game />
+    </Container>
+  );
 }
-
-export default App 
