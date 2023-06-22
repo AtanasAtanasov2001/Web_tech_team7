@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import chessLogo from "./resources/chessLogo.jpg";
 
 const LoginForm = ({ handleLogin }) => {
   const [username, setUsername] = useState("");
@@ -17,9 +16,6 @@ const LoginForm = ({ handleLogin }) => {
   return (
     <div className="login-container">
       <div className="square"></div>
-      <div className="logo">
-      <img src={chessLogo} alt="Chess Logo" />
-</div>
       <form className="login-form" onSubmit={handleSubmit}>
         <label>
           Username:
