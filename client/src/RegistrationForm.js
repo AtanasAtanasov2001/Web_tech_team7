@@ -7,10 +7,16 @@ const RegistrationForm = ({ handleRegistration }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        handleRegistration(username, password);
+        if(username && password) {
+            if (password === confirmPassword) {
+                handleRegistration(username, password);
+            } else {
+                alert('Confirm password error')
+            }
+        } else {
+            alert('No input')
+        }
     };
-
-
 
     return (
         <form onSubmit={handleSubmit}>

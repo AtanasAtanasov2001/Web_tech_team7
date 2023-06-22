@@ -28,7 +28,22 @@ function getGameState(gameId) {
 			throw new Error(`Game id ${gameId} not found!`);
 		});
 }
+/**
+ * get games 
+ * @param {none} gameId - game id
+ * @returns {promise} - eg. { "gameId": "...", "state": "..."}
+ */
+function getGames() {
+  const url = `http://localhost:8080/game`;
 
+	return axios.get(url)
+
+		.then(res => { return {game: res.body} })
+		.catch(e => {
+      console.error(`ERROR: Game id ${id} not found!`)
+			throw new Error(`Game id ${id} not found!`);
+		});
+}
 /**
  * create game
  * @param {object} data - object containing game state as string (fen) and user ids,

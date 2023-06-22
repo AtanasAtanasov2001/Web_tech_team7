@@ -36,12 +36,10 @@ router.post('/createGame', authMiddleware, (req, res, next) => {
     }
 });
 
-
-
-router.post('/register', (req, res) => {
-  
-
-
+router.get('/games:gameID', (req, res, next) => {
+    const gameID = req.params.gameID;
+    
+    
 })
 
 module.exports = router;

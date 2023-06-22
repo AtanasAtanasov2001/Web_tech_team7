@@ -9,10 +9,6 @@ const LoginForm = ({ handleLogin }) => {
     handleLogin(username, password);
   };
 
-  const handleFacebookLogin = () => { };
-
-  const handleGoogleLogin = () => { };
-
   return (
     <div className="login-container">
       <div className="square"></div>
@@ -35,17 +31,7 @@ const LoginForm = ({ handleLogin }) => {
           />
         </label>
         <br />
-        <button  type="submit">Login</button>
-        <button
-          type="button"
-          className="facebook"
-          onClick={handleFacebookLogin}
-        >
-          Login with Facebook
-        </button>
-        <button type="button" className="google" onClick={handleGoogleLogin}>
-          Login with Google
-        </button>
+        <button type="submit">Login</button>
       </form>
     </div>
   );
