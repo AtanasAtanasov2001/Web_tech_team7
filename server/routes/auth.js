@@ -25,7 +25,6 @@ router.post('/mockRegister', (req, res, next) => {
 });
 
 router.post("/register", (req, res) => {
-    // TODO: add more fields
     const {username, password} = req.body;
 
     if(username && password) {

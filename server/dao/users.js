@@ -1,7 +1,4 @@
 const axios = require('axios');
-// const TokenCache = require('./TokenCache');
-// const tokenCache = new TokenCache();
-// TODO: tokenCache should not be init here
 // TODO: password should be coded
 
 /**
