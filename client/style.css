@@ -1,0 +1,25 @@
+body {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    width: 90%;
+    max-width: 120px;
+}
+
+#message-container {
+    border: 1px solid black;
+    height: 500px;
+    width: 500px;
+}
+#message-container div{
+    background-color: #CCC;
+    padding: 5px;
+}
+#message-input{
+    display: inline-block;
+}
+#send-button{
+    display: inline-block;
+}

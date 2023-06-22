@@ -39,4 +39,10 @@ router.post('/createGame', (req, res, next) => {
     .catch(e => res.status(500).send(`${e}`));
 });
 
+router.post('/register', (req, res) => {
+  
+
+
+})
+
 module.exports = router;
