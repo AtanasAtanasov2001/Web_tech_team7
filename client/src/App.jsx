@@ -4,6 +4,7 @@ import { Container } from "@mui/material";
 import Game from "./Game";
 import LoginForm from "./LoginForm";
 import RegistrationForm from "./RegistrationForm";
+import GameList from "./GamesList";
 import "./App.css";
 import axios from "axios";
 
@@ -11,6 +12,8 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [showRegistration, setShowRegistration] = useState(false);
   const [token, setToken] = useState(localStorage.getItem('token'));
+  const [showGamePage, setShowGamePage] = useState(false); // New state variable
+
 
   useEffect(() => {
     if(token) {
@@ -45,11 +48,34 @@ const App = () => {
       });
   };
 
+
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");  
+    setLoggedIn(false);
+  };
+
+
+  const handleCreateGame = () => {
+    setShowGamePage(true); // Set the state to display the game page
+  };
+
   return (
     <Container>
       <h1 className="login-form">Head 2 Head Chess</h1>
       {loggedIn ? (
-        <Game />
+        <>
+          {!showGamePage ? (
+            <>
+              <GameList />
+              <button onClick={handleLogout}>Logout</button>
+              <button onClick={handleCreateGame}>Create Game</button>
+              {/* <>button on</> */}
+            </>
+          ) : (
+            <Game />
+          )}
+        </>
       ) : (
         <>
           {showRegistration ? (
@@ -66,5 +92,4 @@ const App = () => {
   );
 };
 
-export default App
-
+export default App;
