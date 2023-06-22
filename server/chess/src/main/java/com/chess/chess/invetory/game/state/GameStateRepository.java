@@ -41,8 +41,8 @@ public class GameStateRepository extends NamedParameterJdbcDaoSupport
     public void update(GameState gameState, UUID uuid)
     {
         final String sql = """
-                INSERT INTO game_state (id, game_id, player_id, state, time_updated)
-                VALUES (:id, :game_id, :player_id, :state, :time_updated);
+                INSERT INTO game_state (id, game_id, state, time_updated)
+                VALUES (:id, :game_id, :state, :time_updated);
                 """;
 
         final MapSqlParameterSource params = new MapSqlParameterSource()

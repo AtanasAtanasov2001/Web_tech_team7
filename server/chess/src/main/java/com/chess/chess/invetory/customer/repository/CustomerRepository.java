@@ -87,6 +87,28 @@ public class CustomerRepository extends NamedParameterJdbcDaoSupport
         return Optional.ofNullable(Objects.requireNonNull(getNamedParameterJdbcTemplate()).queryForObject(sql, params, customerRowMapper));
     }
 
+    public Optional<Customer> getCustomer(String username)
+    {
+        final String sql = """
+                SELECT c.id AS customer_id,
+                       username,
+                       email,
+                       registration_date,
+                       name,
+                       last_name,
+                       birth_date,
+                       city
+                FROM customer c
+                         JOIN customer_details cd ON c.id = cd.customer_id
+                WHERE c.username = :username;
+                """;
+
+        final Map<String, Object> params = Map.of("username", username);
+
+        return Optional.ofNullable(Objects.requireNonNull(getNamedParameterJdbcTemplate()).queryForObject(sql, params, customerRowMapper));
+    }
+
+
 
     public List<Customer> getAllCustomers()
     {
