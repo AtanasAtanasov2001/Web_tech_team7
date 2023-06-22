@@ -31,15 +31,9 @@ button[type="submit"] {
     margin-bottom: 10px;
 }
 
-button.facebook {
-    background-color: #3b5998;
-    color: #fff;
-    margin-bottom: 10px;
-}
 
-button.google {
-    background-color: #db4437;
-    color: #fff;
+button.logout {
+    background-color: ;
 }
 
 .login-container {

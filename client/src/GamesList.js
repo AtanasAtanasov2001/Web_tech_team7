@@ -19,8 +19,6 @@ function GameList() {
 
   return (
     <div>
-      hello i am div
-      bali mu maikata
       {/* Render the list of games */}
       {games.map(game => (
         <div key={game.id}>{game.name}</div>
