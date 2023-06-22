@@ -48,7 +48,10 @@ const App = () => {
       });
   };
 
+
+
   const handleLogout = () => {
+    localStorage.removeItem("token");  
     setLoggedIn(false);
   };
 
