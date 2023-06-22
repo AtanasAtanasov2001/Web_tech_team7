@@ -1,4 +1,9 @@
 const axios = require('axios');
+const path = require("path");
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
+const DB_SERVER = process.env.ENV === 'prod' ? process.env.DB_SERVER : 'localhost';
+
+
 // TODO: password should be coded
 
 /**
@@ -14,7 +19,7 @@ const axios = require('axios');
 }
  */
 function getUser(id) {
-    const url = `http://localhost:8080/customer/${id}`;
+    const url = `http://${DB_SERVER}:8080/customer/${id}`;
 
     return axios.get(url)
         .then(res => res.data)
@@ -31,7 +36,7 @@ function getUser(id) {
  */
 function getToken(data) {
     const {username, password} = data;
-    const url = `http://localhost:8080/registration/customer-login/skinny`;
+    const url = `http://${DB_SERVER}:8080/registration/customer-login/skinny`;
 
     //TODO: Put credentials in body not query
     let config = {
@@ -54,7 +59,7 @@ function getToken(data) {
  */
 async function createUser(data) {
     const {username, password} = data;
-    const url = 'http://localhost:8080/registration/skinny';
+    const url = `http://${DB_SERVER}:8080/registration/skinny`;
 
     let config = {
         headers: {
@@ -67,8 +72,8 @@ async function createUser(data) {
     return axios.post(url, body, config)
         .then(res => {return {userId: res.data} } )
         .catch(e => {
-            console.error(`ERROR: Username taken!`)
-            throw new Error(`Username taken!`);
+            console.error(`ERROR: Username taken! ${e}`)
+            throw new Error(`Username taken! DB_SERVER: ${DB_SERVER} ENV: ${ENV} url: ${url}`);
         });
 }
 
