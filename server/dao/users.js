@@ -1,13 +1,17 @@
 const axios = require('axios');
-// const TokenCache = require('./TokenCache');
-// const tokenCache = new TokenCache();
-// TODO: tokenCache should not be init here
 // TODO: password should be coded
 
 /**
  * get user
  * @param {string} id - user id
- * @returns {object} - object, containing the userName and password of the user
+ * @returns {promise} - eg. { "id": 14, "username": "...", "email": "...", "registrationDate": "...", "customerDetails": {
+    customerId: 14,
+    name: "...",
+    lastName: "...",
+    birthDate: "...",
+    city: "..."
+  }
+}
  */
 function getUser(id) {
     const url = `http://localhost:8080/customer/${id}`;

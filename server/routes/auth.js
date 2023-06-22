@@ -32,7 +32,7 @@ router.post("/register", (req, res) => {
             .then(userId => res.send(userId))
             .catch(e => res.status(500).send(`${e}`));
     } else {
-        res.status(400).send("No username and password");
+        res.status(400).send("No username and password!");
     }
 });
 
@@ -44,7 +44,7 @@ router.post("/login", (req, res) => {
             .then(token => res.send(token))
             .catch(e => res.status(500).send(`${e}`));
     } else {
-        res.status(400).send("No username and password");
+        res.status(400).send("No username and password!");
     }
 });
 
