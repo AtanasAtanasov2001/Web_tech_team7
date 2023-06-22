@@ -16,7 +16,7 @@ router.post('/mockLogin', (req, res, next) => {
 
 router.post('/mockRegister', (req, res, next) => {
     const {username, password} = req.body;
-
+    console.log("into the mock reg")
     if (username == "111" && password == "111") {
         res.json({userId: 11});
     } else {

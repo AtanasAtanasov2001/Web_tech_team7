@@ -46,6 +46,10 @@ function Game({ players, room, orientation, cleanup }) {
             from: sourceSquare,
             to: targetSquare,
             color: chess.turn(),
+            promotion: "q",
+            promotion: 'r',
+            promotion: 'b',
+            promotion: 'n',
         };
 
         const move = makeAMove(moveData);
@@ -53,6 +57,8 @@ function Game({ players, room, orientation, cleanup }) {
         if (move === null) return false;
 
         return true;
+
+
     }
 
     return (
