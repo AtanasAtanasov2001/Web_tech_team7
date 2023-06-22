@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Container } from "@mui/material";
 import Game from "./Game";
@@ -13,7 +12,8 @@ const App = () => {
   const [showRegistration, setShowRegistration] = useState(false);
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [showGamePage, setShowGamePage] = useState(false); // New state variable
-
+  const [gameId, setGameId] = useState(""); // New state variable for game ID
+  const [createGameInput, setCreateGameInput] = useState(""); // New state variable for CreateGame input
 
   useEffect(() => {
     if(token) {
@@ -57,7 +57,31 @@ const App = () => {
 
 
   const handleCreateGame = () => {
-    setShowGamePage(true); // Set the state to display the game page
+    if (createGameInput) {
+      console.log("Create Game Input:", createGameInput);
+      setShowGamePage(true);
+    } else {
+      alert("Please enter a game input");
+    }
+  };
+
+  
+  const handleJoinGame = () => {
+    if (gameId) {
+      console.log("Game ID:", gameId);
+      setShowGamePage(true); // Set the state to display the game page
+    } else {
+      alert("Please enter a game ID");
+    }
+  };
+
+  const handleGameIdChange = (event) => {
+    setGameId(event.target.value);
+  };
+
+
+  const handleCreateGameInputChange = (event) => {
+    setCreateGameInput(event.target.value);
   };
 
   return (
@@ -68,12 +92,24 @@ const App = () => {
           {!showGamePage ? (
             <>
               <GameList />
-              <button onClick={handleLogout}>Logout</button>
-              <button onClick={handleCreateGame}>Create Game</button>
+              <button onClick={handleLogout} class="logout">Logout</button>
+
+              <button onClick={handleCreateGame} class="create">Create Game</button>
+              <input type="text" />
+
+
+
+              <button onClick={handleJoinGame} class="join">Join Game</button>
+              <input type="text" value={gameId} onChange={handleGameIdChange} />
+              
+
               {/* <>button on</> */}
             </>
           ) : (
-            <Game />
+            <>
+              <Game />
+              <button onClick={handleLogout}>Logout</button>
+            </>
           )}
         </>
       ) : (
