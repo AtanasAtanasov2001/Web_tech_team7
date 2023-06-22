@@ -2,6 +2,7 @@ package com.chess.chess.api.customer;
 
 import com.chess.chess.invetory.customer.Customer;
 import com.chess.chess.invetory.customer.service.CustomerService;
+import com.chess.chess.security.Token;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,9 +30,9 @@ public class CustomerController
     }
 
     @GetMapping("/token")
-    public Customer getByToken(@RequestBody String token)
+    public Customer getByToken(@RequestBody Token token)
     {
-        return customerService.getByToken(token);
+        return customerService.getByToken(token.token);
 
     }
 }

@@ -39,6 +39,8 @@ public class GameService
 
     public List<Game> getAllGames()
     {
-        return repository.getAllGames();
+        List<Game> allGames = repository.getAllGames();
+        System.out.println(allGames.size());
+        return allGames;
     }
 }
