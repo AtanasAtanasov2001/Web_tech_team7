@@ -1,11 +1,10 @@
-
 import React, { useState } from "react";
 import { Container } from "@mui/material";
 import Game from "./Game";
 import LoginForm from "./LoginForm";
 import RegistrationForm from "./RegistrationForm";
+import GameList from "./GameList"; // Import the GameList component
 import "./App.css";
-
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -24,7 +23,10 @@ const App = () => {
     <Container>
       <h1 className="login-form">Head 2 Head Chess</h1>
       {loggedIn ? (
-        <Game />
+        <>
+          <Game />
+          <GameList /> {/* Render the GameList component */}
+        </>
       ) : (
         <>
           {showRegistration ? (
@@ -41,5 +43,4 @@ const App = () => {
   );
 };
 
-export default App
-
+export default App;
