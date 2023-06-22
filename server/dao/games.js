@@ -36,19 +36,21 @@ function getGame(gameId) {
  */
 function createGame(data) {
   // TODO: how to determine if userId is black or white?
+  const { userIdOne, userIdTwo, fen, token } = data;
+
   const url = `http://localhost:8080/game`;
 
   let config = {
     headers: {
       'Content-Type': 'application/json',
-      'Authorization' : data.token
+      'Authorization' : token
     }
   }
 
   let body = {
-    "whiteId": data.userIdOne,
-    "blackId": data.userIdTwo,
-    "state": data.fen
+    "whiteId": userIdOne,
+    "blackId": userIdTwo,
+    "state": fen
   }
 
 	return axios.post(url, body, config)
