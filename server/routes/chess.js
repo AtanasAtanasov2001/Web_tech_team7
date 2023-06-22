@@ -39,11 +39,4 @@ router.post('/createGame', (req, res, next) => {
         .catch(e => res.status(500).send(`${e}`));
 });
 
-router.post("/login", (req, res) => {
-    const {username, password} = req.body;
-    usersDAO.login(username, password)
-        .then(token => res.send(token))
-        .catch((e => res.status(500).send(`${e}`)));
-});
-
 module.exports = router;
