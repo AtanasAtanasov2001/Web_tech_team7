@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 const port = 4000;
+const cors = require('cors')
 
 const http = require('http');
 const socketIO = require('socket.io');
@@ -42,7 +43,7 @@ const chess = require('./routes/chess');
 const auth = require('./routes/auth');
 
 app.use(bodyParser.json());
-
+app.use(cors());
 app.use('/chess', chess);
 app.use('/auth', auth);
 
