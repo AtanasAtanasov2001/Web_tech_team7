@@ -7,10 +7,16 @@ const axios = require('axios');
 /**
  * get user
  * @param {string} id - user id
- * @returns {promise} - object, containing the userName and password of the user
+ * @returns {promise} - eg. { "id": 14, "username": "...", "email": "...", "registrationDate": "...", "customerDetails": {
+    customerId: 14,
+    name: "...",
+    lastName: "...",
+    birthDate: "...",
+    city: "..."
+  }
+}
  */
 function getUser(id) {
-    // TODO: check what is returning
     const url = `http://localhost:8080/customer/${id}`;
 
     return axios.get(url)

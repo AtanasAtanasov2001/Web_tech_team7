@@ -11,7 +11,7 @@ router.post('/move', authMiddleware, validateMove, (req, res, next) => {
     const { move, gameId, token } = req;
 
     if (move.valid) {
-        gamesDAO.getGame(gameId)
+        gamesDAO.getGameState(gameId)
             .then(() => gamesDAO.updateGame(gameId, {fen: move.after, token}))
             .then(() => res.send(move))
             .catch(e => res.status(500).send(`${e}`));

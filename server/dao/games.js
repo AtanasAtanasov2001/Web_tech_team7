@@ -14,11 +14,11 @@ const axios = require('axios');
 // Fullmove number. This is the number of the current move, starting at 1 and incremented after black's move.
 
 /**
- * get game
+ * get game state
  * @param {string} gameId - game id
- * @returns {object} - object containing user ids and game state
+ * @returns {promise} - eg. { "gameId": "...", "state": "..."}
  */
-function getGame(gameId) {
+function getGameState(gameId) {
   const url = `http://localhost:8080/state/${gameId}/currentState`;
 
 	return axios.get(url)
@@ -32,7 +32,7 @@ function getGame(gameId) {
 /**
  * create game
  * @param {object} data - object containing game state as string (fen) and user ids,
- * @returns {string} - game id
+ * @returns {promise} - eg. { "gameId": "..." }
  */
 function createGame(data) {
   const { userIdOne, userIdTwo, fen, token } = data;
@@ -53,7 +53,7 @@ function createGame(data) {
   }
 
 	return axios.post(url, body, config)
-		.then(res => res.data)
+		.then(res => { return { gameId: res.data } })
 		.catch(e => {
       console.error(`ERROR: Authorization token not valid!`)
 			throw new Error(`Authorization token not valid!`);
@@ -64,7 +64,7 @@ function createGame(data) {
  * update game
  * @param {string} gameId - game id
  * @param {object} data - object containing game state as string (fen)
- * @returns {string} - game id
+ * @returns {promise} - {}
  */
 function updateGame(gameId, data) {
   const url = `http://localhost:8080/state/update`;
@@ -89,6 +89,6 @@ function updateGame(gameId, data) {
     });
 }
 
-const gamesDAO = { getGame, createGame, updateGame }
+const gamesDAO = { getGameState, createGame, updateGame }
 
 module.exports = gamesDAO;
