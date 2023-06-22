@@ -1,0 +1,57 @@
+version: '3.8'
+services:
+  maria:
+    image: mariadb:latest
+    restart: always
+    container_name: chess_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: chess
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - "13306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+  web7_chess_db_server:
+    image: buckflago/web7_chess_db_server:1.0.3
+    container_name: chess_db_server
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - maria
+    links:
+      - maria:db_chess
+    environment:
+        DB_CHESS: chess_db:3306
+  web7_chess_client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    restart: always
+    image: buckflago/web7_chess_client:latest
+    container_name: chess_client
+    ports:
+      - "3000:3000"
+    networks:
+      - mynetwork
+    depends_on:
+      - web7_chess_db_server
+  web7_chess_validations:
+    image: buckflago/web7_chess_validations:latest
+    container_name: chess_validations
+    ports:
+      - "4000:4000"
+    networks:
+      - mynetwork
+    depends_on:
+      - web7_chess_db_server
+
+
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  mariadb_data:

@@ -1,9 +1,11 @@
+
 import React, { useState } from "react";
 import { Container } from "@mui/material";
 import Game from "./Game";
 import LoginForm from "./LoginForm";
 import RegistrationForm from "./RegistrationForm";
 import "./App.css";
+
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -39,4 +41,5 @@ const App = () => {
   );
 };
 
-export default App;
+export default App
+
