@@ -10,6 +10,8 @@ const RegistrationForm = ({ handleRegistration }) => {
         handleRegistration(username, password);
     };
 
+
+
     return (
         <form onSubmit={handleSubmit}>
             <label>

@@ -5,6 +5,7 @@ import LoginForm from "./LoginForm";
 import RegistrationForm from "./RegistrationForm";
 import GameList from "./GameList"; // Import the GameList component
 import "./App.css";
+import axios from "axios";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -17,6 +18,16 @@ const App = () => {
   const handleRegistration = (username, password) => {
     setLoggedIn(true);
     setShowRegistration(false);
+
+    axios.post("http://localhost:4000/auth/mockRegister", {
+      username: "111",
+      password: "111"
+    }, { headers: { 'Content-Type': 'application/json' } }).then(r => 
+      { console.log(r) 
+      
+      
+      })
+
   };
 
   return (
