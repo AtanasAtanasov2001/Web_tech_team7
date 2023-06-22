@@ -27,6 +27,7 @@ function getGameState(gameId) {
       console.error(`ERROR: Game id ${gameId} not found!`)
 			throw new Error(`Game id ${gameId} not found!`);
 		});
+    
 }
 /**
  * get games 
@@ -37,11 +38,10 @@ function getGames() {
   const url = `http://localhost:8080/game`;
 
 	return axios.get(url)
-
-		.then(res => { return {game: res.body} })
+		.then(res => { res.data })
 		.catch(e => {
-      console.error(`ERROR: Game id ${id} not found!`)
-			throw new Error(`Game id ${id} not found!`);
+      console.error(`ERROR: Game ${game} not found!`)
+			throw new Error(`Game ${game} not found!`);
 		});
 }
 /**
@@ -104,6 +104,6 @@ function updateGame(gameId, data) {
     });
 }
 
-const gamesDAO = { getGameState, createGame, updateGame }
+const gamesDAO = { getGameState, createGame, updateGame, getGames}
 
 module.exports = gamesDAO;

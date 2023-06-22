@@ -36,10 +36,15 @@ router.post('/createGame', authMiddleware, (req, res, next) => {
     }
 });
 
-router.get('/games:gameID', (req, res, next) => {
+router.get('/games', (req, res, next) => {
     const gameID = req.params.gameID;
-    
-    
-})
+
+    if(gameID){
+        gamesDAO.getGames()
+        .catch(e => res.status(500).send(`${e}`));
+    } else {
+        res.status(400).send("No games!");
+    } 
+});
 
 module.exports = router;
