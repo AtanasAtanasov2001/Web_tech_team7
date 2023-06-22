@@ -36,6 +36,8 @@ router.post('/createGame', authMiddleware, (req, res, next) => {
     }
 });
 
+
+
 router.post('/register', (req, res) => {
   
 

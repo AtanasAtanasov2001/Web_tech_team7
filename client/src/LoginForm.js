@@ -35,7 +35,7 @@ const LoginForm = ({ handleLogin }) => {
           />
         </label>
         <br />
-        <button type="submit">Login</button>
+        <button  type="submit">Login</button>
         <button
           type="button"
           className="facebook"

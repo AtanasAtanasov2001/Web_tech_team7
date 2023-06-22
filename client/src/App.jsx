@@ -3,7 +3,7 @@ import { Container } from "@mui/material";
 import Game from "./Game";
 import LoginForm from "./LoginForm";
 import RegistrationForm from "./RegistrationForm";
-import GameList from "./GameList"; // Import the GameList component
+import GameList from "./GamesList";
 import "./App.css";
 import axios from "axios";
 
@@ -35,7 +35,6 @@ const App = () => {
       <h1 className="login-form">Head 2 Head Chess</h1>
       {loggedIn ? (
         <>
-          <Game />
           <GameList /> {/* Render the GameList component */}
         </>
       ) : (
@@ -44,6 +43,7 @@ const App = () => {
             <RegistrationForm handleRegistration={handleRegistration} />
           ) : (
             <LoginForm handleLogin={handleLogin} />
+            
           )}
           <button onClick={() => setShowRegistration(!showRegistration)}>
             {showRegistration ? "Back to Login" : "Register"}
