@@ -35,7 +35,6 @@ function getGame(gameId) {
  * @returns {string} - game id
  */
 function createGame(data) {
-  // TODO: how to determine if userId is black or white?
   const { userIdOne, userIdTwo, fen, token } = data;
 
   const url = `http://localhost:8080/game`;

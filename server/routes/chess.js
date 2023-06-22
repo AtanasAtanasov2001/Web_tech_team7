@@ -7,12 +7,13 @@ const authMiddleware = require('./middleware/auth');
 const router = express.Router();
 
 router.post('/move', authMiddleware, validateMove, (req, res, next) => {
+    // TODO: check if the correct user is moving
     const { move, gameId, token } = req;
 
     if (move.valid) {
         gamesDAO.getGame(gameId)
-            .then(gamesDAO.updateGame(gameId, {fen: move.after, token}))
-            .then(r => res.send(move))
+            .then(() => gamesDAO.updateGame(gameId, {fen: move.after, token}))
+            .then(() => res.send(move))
             .catch(e => res.status(500).send(`${e}`));
     } else {
         res.status(400).send(move);
@@ -26,8 +27,8 @@ router.post('/createGame', authMiddleware, (req, res, next) => {
 
     if (userIdOne && userIdTwo) {
         usersDAO.getUser(userIdOne)
-        .then(u1 => usersDAO.getUser(userIdTwo))
-        .then(u2 => gamesDAO.createGame({userIdOne, userIdTwo, fen, token}))
+        .then(() => usersDAO.getUser(userIdTwo))
+        .then(() => gamesDAO.createGame({userIdOne, userIdTwo, fen, token}))
         .then(gameId => res.send(gameId))
         .catch(e => res.status(500).send(`${e}`));
     } else {
