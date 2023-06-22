@@ -38,10 +38,11 @@ function getGames() {
   const url = `http://localhost:8080/game`;
 
 	return axios.get(url)
-		.then(res => { res.data })
+		.then(res => { console.log(res.data)
+                  res.data })
 		.catch(e => {
-      console.error(`ERROR: Game ${game} not found!`)
-			throw new Error(`Game ${game} not found!`);
+      console.error(`ERROR: Game  not found!`)
+			throw new Error(`Game not found!`);
 		});
 }
 /**

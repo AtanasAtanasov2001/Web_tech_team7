@@ -12,6 +12,8 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [showRegistration, setShowRegistration] = useState(false);
   const [token, setToken] = useState(localStorage.getItem('token'));
+  const [showGamePage, setShowGamePage] = useState(false); // New state variable
+
 
   useEffect(() => {
     if(token) {
@@ -46,12 +48,30 @@ const App = () => {
       });
   };
 
+  const handleLogout = () => {
+    setLoggedIn(false);
+  };
+
+
+  const handleCreateGame = () => {
+    setShowGamePage(true); // Set the state to display the game page
+  };
+
   return (
     <Container>
       <h1 className="login-form">Head 2 Head Chess</h1>
       {loggedIn ? (
         <>
-          <GameList /> {/* Render the GameList component */}
+          {!showGamePage ? (
+            <>
+              <GameList />
+              <button onClick={handleLogout}>Logout</button>
+              <button onClick={handleCreateGame}>Create Game</button>
+              {/* <>button on</> */}
+            </>
+          ) : (
+            <Game />
+          )}
         </>
       ) : (
         <>
@@ -59,7 +79,6 @@ const App = () => {
             <RegistrationForm handleRegistration={handleRegistration} />
           ) : (
             <LoginForm handleLogin={handleLogin} />
-            
           )}
           <button onClick={() => setShowRegistration(!showRegistration)}>
             {showRegistration ? "Back to Login" : "Register"}
