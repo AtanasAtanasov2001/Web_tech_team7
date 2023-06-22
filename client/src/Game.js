@@ -1,17 +1,39 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { Chessboard } from "react-chessboard";
 import { Chess } from "chess.js";
 import CustomDialog from "./CustomDialog";
 import "./App.css";
+import axios from "axios";
+
 
 function Game({ players, room, orientation, cleanup }) {
     const chess = useMemo(() => new Chess(), []);
     const [fen, setFen] = useState(chess.fen());
     const [over, setOver] = useState("");
+    const gameId = 'df475ac5-44dd-4314-b674-cb288e96ccba';
+
+    useEffect(() => {
+        var fen_;
+        axios.get("http://localhost:4000/chess/game/" + gameId)
+            .then(r => {
+                fen_ = r.data.state;
+                chess.load(fen_);
+                setFen(fen_);
+            })
+    }, [chess, fen])
 
     const makeAMove = useCallback(
         (move) => {
             try {
+                axios.post("http://localhost:4000/chess/move", {fen: chess.fen(), from: move.from, to: move.to, gameId }, { headers: { 'Content-Type': 'application/json', 'Authorization': localStorage.getItem('token') } })
+                    .then(r => {
+                        console.log(r);
+                        setFen(r.data.after);
+                    })
+                    .catch(e => {
+                        console.log("invalid move");
+                    })
+
                 const result = chess.move(move);
                 setFen(chess.fen());
 
