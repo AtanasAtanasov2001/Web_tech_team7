@@ -6,6 +6,18 @@ const authMiddleware = require('./middleware/auth');
 
 const router = express.Router();
 
+router.get('/game/:gameId', (req, res, next) => {
+    const gameId = req.params.gameId;
+
+    if (gameId) {
+        gamesDAO.getGameState(gameId)
+            .then(state => res.send(state))
+            .catch(e => res.status(500).send(`${e}`));
+    } else {
+        res.status(400).send("No Game Id");
+    }
+});
+
 router.post('/move', authMiddleware, validateMove, (req, res, next) => {
     // TODO: check if the correct user is moving
     const { move, gameId, token } = req;
