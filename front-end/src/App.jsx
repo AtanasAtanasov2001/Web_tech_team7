@@ -14,7 +14,6 @@ const App = () => {
   };
 
   const handleRegistration = (username, password) => {
-    // Handle registration logic
     setLoggedIn(true);
     setShowRegistration(false);
   };

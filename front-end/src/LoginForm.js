@@ -9,9 +9,9 @@ const LoginForm = ({ handleLogin }) => {
     handleLogin(username, password);
   };
 
-  const handleFacebookLogin = () => {};
+  const handleFacebookLogin = () => { };
 
-  const handleGoogleLogin = () => {};
+  const handleGoogleLogin = () => { };
 
   return (
     <div className="login-container">

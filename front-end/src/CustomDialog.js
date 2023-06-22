@@ -7,17 +7,16 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 export default function CustomDialog({ open, children, title, contentText, handleContinue, handlePlayAgain }) {
     return (
-      <Dialog open={open}>
-        <DialogTitle>{title}</DialogTitle>
-        <DialogContent>
-          <DialogContentText>{contentText}</DialogContentText>
-          {children}
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleContinue}>Continue</Button>
-          <Button onClick={handlePlayAgain}>Play Again</Button> 
-        </DialogActions>
-      </Dialog>
+        <Dialog open={open}>
+            <DialogTitle>{title}</DialogTitle>
+            <DialogContent>
+                <DialogContentText>{contentText}</DialogContentText>
+                {children}
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleContinue}>Continue</Button>
+                <Button onClick={handlePlayAgain}>Play Again</Button>
+            </DialogActions>
+        </Dialog>
     );
-  }
-  
+}
