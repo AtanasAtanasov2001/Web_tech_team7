@@ -39,9 +39,13 @@ const server = http.createServer(app);
 
 // routes
 const chess = require('./routes/chess');
+const auth = require('./routes/auth');
+
 app.use(bodyParser.json());
 
 app.use('/chess', chess);
+app.use('/auth', auth);
+
 
 server.listen(port, () => {
   console.log(`Chess server listening on port ${port}`)
