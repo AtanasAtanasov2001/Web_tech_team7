@@ -17,19 +17,19 @@ public class CustomerController
         this.customerService = customerService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/by-id/{id}")
     public Customer getById(@PathVariable("id") Long id)
     {
         return customerService.getById(id);
     }
 
-    @GetMapping("/{username}")
+    @GetMapping("/by-name/{username}")
     public Customer getByUsername(@PathVariable("username") String username)
     {
         return customerService.getByUsername(username);
     }
 
-    @GetMapping("/token")
+    @PostMapping("/token")
     public Customer getByToken(@RequestBody Token token)
     {
         return customerService.getByToken(token.token);

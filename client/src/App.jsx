@@ -16,13 +16,13 @@ const App = () => {
   const [createGameInput, setCreateGameInput] = useState(""); // New state variable for CreateGame input
 
   useEffect(() => {
-    if(token) {
+    if (token) {
       setLoggedIn(true);
     }
   }, [token])
 
   const handleLogin = (username, password) => {
-    axios.post("http://localhost:4000/auth/login", { username, password },{ headers: { 'Content-Type': 'application/json' } })
+    axios.post("http://localhost:4000/auth/login", { username, password }, { headers: { 'Content-Type': 'application/json' } })
       .then(r => {
         if (r.status === 200) {
           localStorage.setItem("token", "5ZvqN3FRsopaOUrSbXbNtyOIr1DVxr88kxEbAs72Hpw7krgWyjo5VmE4YiBIQ9aGN1TO7hQKkXZ4MJPQSo9a35ml8MmO8usMopNugu8xhHznPsz0iGqszdBCu6JnIx8JeSxsQh031lSwOUwzfnQr0DsXLI8AR4RZPDiXmNqCbVU" + r.data.token);
@@ -36,7 +36,7 @@ const App = () => {
   };
 
   const handleRegistration = (username, password) => {
-    axios.post("http://localhost:4000/auth/register", { username, password },{ headers: { 'Content-Type': 'application/json' } })
+    axios.post("http://localhost:4000/auth/register", { username, password }, { headers: { 'Content-Type': 'application/json' } })
       .then(r => {
         if (r.status === 200) {
           alert("Success");
@@ -51,7 +51,7 @@ const App = () => {
 
 
   const handleLogout = () => {
-    localStorage.removeItem("token");  
+    localStorage.removeItem("token");
     setLoggedIn(false);
   };
 
@@ -81,6 +81,7 @@ const App = () => {
     }
   };
 
+
   const handleJoinGame = () => {
     if (gameId) {
       console.log("Game ID:", gameId);
@@ -107,20 +108,38 @@ const App = () => {
           {!showGamePage ? (
             <>
               <GameList />
-              <button onClick={handleLogout} class="logout">Logout</button>
+              <button onClick={handleLogout} className="logout">
+                Logout
+              </button>
 
-              <button onClick={handleCreateGame} class="create">Create Game</button>
-              <input type="text"value={createGameInput} onChange={handleCreateGameInputChange} />
+              <div className="button-group">
+                <button onClick={handleCreateGame} className="create">
+                  Create Game
+                </button>
+                <input
+                  type="text"
+                  value={createGameInput}
+                  onChange={handleCreateGameInputChange}
+                />
+              </div>
 
-              <button onClick={handleJoinGame} class="join">Join Game</button>
-              <input type="text" value={gameId} onChange={handleGameIdChange} />
+              <div className="button-group">
+                <button onClick={handleJoinGame} className="join">
+                  Join Game
+                </button>
+                <input
+                  type="text"
+                  value={gameId}
+                  onChange={handleGameIdChange}
+                />
+              </div>
 
               {/* <>button on</> */}
             </>
           ) : (
             <>
               <Game />
-              <button onClick={handleLogout}>Logout</button>
+              <button onClick={handleLogout} class="logout">Logout</button>
             </>
           )}
         </>
@@ -137,6 +156,7 @@ const App = () => {
         </>
       )}
     </Container>
+
   );
 };
 

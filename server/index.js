@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const app = express()
 const port = 4000;
 const cors = require('cors')
+require('dotenv').config();
 
 const http = require('http');
 const socketIO = require('socket.io');

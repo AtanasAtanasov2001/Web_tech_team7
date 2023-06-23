@@ -1,5 +1,7 @@
 const axios = require('axios');
-
+const path = require("path");
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
+const DB_SERVER = process.env.ENV === 'prod' ? process.env.DB_SERVER : 'localhost';
 // fen format ->
 // eg: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
 // FEN stands for Forsyth-Edwards Notation, and it is a compact notation used to describe the state of a game of chess. FEN strings are commonly used in computer chess programs, chess databases, and online chess games.
@@ -19,7 +21,7 @@ const axios = require('axios');
  * @returns {promise} - eg. { "gameId": "...", "state": "..."}
  */
 function getGameState(gameId) {
-  const url = `http://localhost:8080/state/${gameId}/currentState`;
+  const url = `http://${DB_SERVER}:8080/state/${gameId}/currentState`;
 
 	return axios.get(url)
 		.then(res => {return {gameId, state: res.data}})
@@ -28,22 +30,7 @@ function getGameState(gameId) {
 			throw new Error(`Game id ${gameId} not found!`);
 		});
 }
-/**
- * get games 
- * @param {none} gameId - game id
- * @returns {promise} - eg. { "gameId": "...", "state": "..."}
- */
-function getGames() {
-  const url = `http://localhost:8080/game`;
 
-	return axios.get(url)
-		.then(res => { console.log(res.data)
-                  res.data })
-		.catch(e => {
-      console.error(`ERROR: Game  not found!`)
-			throw new Error(`Game not found!`);
-		});
-}
 /**
  * create game
  * @param {object} data - object containing game state as string (fen) and user ids,
@@ -52,7 +39,7 @@ function getGames() {
 function createGame(data) {
   const { userIdOne, userIdTwo, fen, token } = data;
 
-  const url = `http://localhost:8080/game`;
+  const url = `http://${DB_SERVER}:8080/game`;
 
   let config = {
     headers: {
@@ -82,7 +69,7 @@ function createGame(data) {
  * @returns {promise} - {}
  */
 function updateGame(gameId, data) {
-  const url = `http://localhost:8080/state/update`;
+  const url = `http://${DB_SERVER}:8080/state/update`;
 
   let config = {
     headers: {
@@ -104,6 +91,6 @@ function updateGame(gameId, data) {
     });
 }
 
-const gamesDAO = { getGameState, createGame, updateGame, getGames}
+const gamesDAO = { getGameState, createGame, updateGame}
 
 module.exports = gamesDAO;
