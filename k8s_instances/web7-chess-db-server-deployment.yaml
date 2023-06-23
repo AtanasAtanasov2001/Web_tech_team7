@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yaml
+    kompose.version: 1.24.0 (4a2a0458)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: web7-chess-db-server
+  name: web7-chess-db-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: web7-chess-db-server
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yaml
+        kompose.version: 1.24.0 (4a2a0458)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: web7-chess-db-server
+    spec:
+      containers:
+        - env:
+            - name: DB_CHESS
+              value: chess_db:3306
+          image: buckflago/web7_chess_db_server:latest
+          name: chess-db-server
+          ports:
+            - containerPort: 8080
+          resources: {}
+      restartPolicy: Always
+status: {}
