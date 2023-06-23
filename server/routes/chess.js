@@ -48,12 +48,4 @@ router.post('/createGame', authMiddleware, (req, res, next) => {
     }
 });
 
-router.get('/games', (req, res, next) => {
-
-    gamesDAO.getGames()
-        .then(r => { console.log(r) })
-        .catch(e => res.status(500).send(`${e}`));
-        
-});
-
 module.exports = router;

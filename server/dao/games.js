@@ -31,22 +31,7 @@ function getGameState(gameId) {
 		});
     
 }
-/**
- * get games 
- * @param {none} gameId - game id
- * @returns {promise} - eg. { "gameId": "...", "state": "..."}
- */
-function getGames() {
-  const url = `http://localhost:8080/game`;
 
-	return axios.get(url)
-		.then(res => { console.log(res.data)
-                  res.data })
-		.catch(e => {
-      console.error(`ERROR: Game  not found!`)
-			throw new Error(`Game not found!`);
-		});
-}
 /**
  * create game
  * @param {object} data - object containing game state as string (fen) and user ids,
@@ -107,6 +92,6 @@ function updateGame(gameId, data) {
     });
 }
 
-const gamesDAO = { getGameState, createGame, updateGame, getGames}
+const gamesDAO = { getGameState, createGame, updateGame}
 
 module.exports = gamesDAO;
