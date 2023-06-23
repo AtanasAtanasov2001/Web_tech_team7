@@ -6,20 +6,23 @@ import "./App.css";
 import axios from "axios";
 
 
-function Game({ players, room, orientation, cleanup }) {
+function Game({ players, room, orientation, cleanup, gameId }) {
     const chess = useMemo(() => new Chess(), []);
     const [fen, setFen] = useState(chess.fen());
     const [over, setOver] = useState("");
-    const gameId = 'df475ac5-44dd-4314-b674-cb288e96ccba';
 
     useEffect(() => {
-        var fen_;
-        axios.get("http://localhost:4000/chess/game/" + gameId)
-            .then(r => {
-                fen_ = r.data.state;
-                chess.load(fen_);
-                setFen(fen_);
-            })
+        const interval = setInterval(() => {
+            console.log('game', gameId)
+            var fen_;
+            axios.get("http://localhost:4000/chess/game/" + gameId)
+                .then(r => {
+                    fen_ = r.data.state;
+                    chess.load(fen_);
+                    setFen(fen_);
+                })
+        }, 2000);
+        return () => clearInterval(interval);
     }, [chess, fen])
 
     const makeAMove = useCallback(

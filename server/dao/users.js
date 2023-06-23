@@ -19,13 +19,44 @@ const DB_SERVER = process.env.ENV === 'prod' ? process.env.DB_SERVER : 'localhos
 }
  */
 function getUser(id) {
-    const url = `http://${DB_SERVER}:8080/customer/${id}`;
+    const url = `http://${DB_SERVER}:8080/customer/by-id/${id}`;
 
     return axios.get(url)
         .then(res => res.data)
         .catch(e => {
             console.error(`ERROR: User id ${id} not found!`)
             throw new Error(`User id ${id} not found!`);
+        });
+}
+
+function getUserByToken(token) {
+    const url = `http://localhost:8080/customer/token`;
+
+    let body = { token };
+
+    let config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization' : token
+        }
+      }
+
+    return axios.post(url, body, config)
+        .then(res => res.data)
+        .catch(e => {
+            console.error(`ERROR: `)
+            throw new Error(`err`);
+        });
+}
+
+function getUserByUsername(username) {
+    const url = `http://localhost:8080/registration/${username}`;
+
+    return axios.get(url)
+        .then(res => res.data)
+        .catch(e => {
+            console.error(`ERROR: `)
+            throw new Error(`err`);
         });
 }
 
@@ -100,6 +131,6 @@ async function createUser(data) {
 //     return token;
 // }
 
-const usersDAO = {getUser, createUser, getToken}
+const usersDAO = {getUser, createUser, getToken, getUserByToken, getUserByUsername}
 
 module.exports = usersDAO;
