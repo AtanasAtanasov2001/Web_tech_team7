@@ -19,7 +19,7 @@ const DB_SERVER = process.env.ENV === 'prod' ? process.env.DB_SERVER : 'localhos
 }
  */
 function getUser(id) {
-    const url = `http://${DB_SERVER}:8080/customer/${id}`;
+    const url = `http://${DB_SERVER}:8080/customer/by-id/${id}`;
 
     return axios.get(url)
         .then(res => res.data)

@@ -66,16 +66,14 @@ const App = () => {
           axios.get("http://localhost:4000/chess/userByUsername/" + createGameInput, { headers: { 'Content-Type': 'application/json' } })
             .then(opID => {
               oponentID = opID.data.userId;
-              console.log(typeof(myId))
+
               axios.post("http://localhost:4000/chess/createGame", { userIdOne:myId, userIdTwo: oponentID }, { headers: { 'Content-Type': 'application/json', 'Authorization': localStorage.getItem('token') } })
                 .then(r => {
-                  console.log(r);
+                  setGameId(r.data.gameId);
+                  setShowGamePage(true);
                 })
             })
         })
-
-      console.log("Create Game Input:", createGameInput);
-      setShowGamePage(true);
     } else {
       alert("Please enter a game input");
     }
@@ -84,8 +82,8 @@ const App = () => {
 
   const handleJoinGame = () => {
     if (gameId) {
-      console.log("Game ID:", gameId);
-      setShowGamePage(true); // Set the state to display the game page
+      setGameId(gameId);
+      setShowGamePage(true);
     } else {
       alert("Please enter a game ID");
     }
@@ -138,7 +136,8 @@ const App = () => {
             </>
           ) : (
             <>
-              <Game />
+              {gameId}
+              <Game gameId={gameId}/>
               <button onClick={handleLogout} class="logout">Logout</button>
             </>
           )}
