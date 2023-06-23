@@ -24,6 +24,37 @@ function getUser(id) {
         });
 }
 
+function getUserByToken(token) {
+    const url = `http://localhost:8080/customer/token`;
+
+    let body = { token };
+
+    let config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization' : token
+        }
+      }
+
+    return axios.post(url, body, config)
+        .then(res => res.data)
+        .catch(e => {
+            console.error(`ERROR: `)
+            throw new Error(`err`);
+        });
+}
+
+function getUserByUsername(username) {
+    const url = `http://localhost:8080/registration/${username}`;
+
+    return axios.get(url)
+        .then(res => res.data)
+        .catch(e => {
+            console.error(`ERROR: `)
+            throw new Error(`err`);
+        });
+}
+
 /**
  * get user token
  * @param {object} data - object, containing the userName and password of the user
@@ -95,6 +126,6 @@ async function createUser(data) {
 //     return token;
 // }
 
-const usersDAO = {getUser, createUser, getToken}
+const usersDAO = {getUser, createUser, getToken, getUserByToken, getUserByUsername}
 
 module.exports = usersDAO;

@@ -27,7 +27,6 @@ function getGameState(gameId) {
       console.error(`ERROR: Game id ${gameId} not found!`)
 			throw new Error(`Game id ${gameId} not found!`);
 		});
-    
 }
 /**
  * get games 

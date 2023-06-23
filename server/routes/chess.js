@@ -48,12 +48,19 @@ router.post('/createGame', authMiddleware, (req, res, next) => {
     }
 });
 
-router.get('/games', (req, res, next) => {
+router.get('/userByToken', authMiddleware, (req, res, next) => {
+    const { token } = req;
 
-    gamesDAO.getGames()
-        .then(r => { console.log(r) })
+    usersDAO.getUserByToken(token)
+        .then(r => res.send(r))
         .catch(e => res.status(500).send(`${e}`));
-        
 });
 
+router.get('/userByUsername/:username', (req, res, next) => {
+    const username = req.params.username;
+
+    usersDAO.getUserByUsername(username)
+        .then(r => res.send({userId: r}))
+        .catch(e => res.status(500).send(`${e}`));
+});
 module.exports = router;

@@ -14,7 +14,7 @@ services:
     volumes:
       - mariadb_data:/var/lib/mysql
   web7_chess_db_server:
-    image: buckflago/web7_chess_db_server:1.0.3
+    image: buckflago/web7_chess_db_server:2.0.2
     container_name: chess_db_server
     restart: always
     ports:

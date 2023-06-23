@@ -58,6 +58,22 @@ const App = () => {
 
   const handleCreateGame = () => {
     if (createGameInput) {
+      var myId;
+      var oponentID;
+      axios.get("http://localhost:4000/chess/userByToken", { headers: { 'Content-Type': 'application/json', 'Authorization': localStorage.getItem('token') } })
+        .then(mId => {
+          myId = mId.data.id;
+          axios.get("http://localhost:4000/chess/userByUsername/" + createGameInput, { headers: { 'Content-Type': 'application/json' } })
+            .then(opID => {
+              oponentID = opID.data.userId;
+              console.log(typeof(myId))
+              axios.post("http://localhost:4000/chess/createGame", { userIdOne:myId, userIdTwo: oponentID }, { headers: { 'Content-Type': 'application/json', 'Authorization': localStorage.getItem('token') } })
+                .then(r => {
+                  console.log(r);
+                })
+            })
+        })
+
       console.log("Create Game Input:", createGameInput);
       setShowGamePage(true);
     } else {
@@ -65,7 +81,6 @@ const App = () => {
     }
   };
 
-  
   const handleJoinGame = () => {
     if (gameId) {
       console.log("Game ID:", gameId);
@@ -95,13 +110,10 @@ const App = () => {
               <button onClick={handleLogout} class="logout">Logout</button>
 
               <button onClick={handleCreateGame} class="create">Create Game</button>
-              <input type="text" />
-
-
+              <input type="text"value={createGameInput} onChange={handleCreateGameInputChange} />
 
               <button onClick={handleJoinGame} class="join">Join Game</button>
               <input type="text" value={gameId} onChange={handleGameIdChange} />
-              
 
               {/* <>button on</> */}
             </>
