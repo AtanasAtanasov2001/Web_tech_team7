@@ -3,6 +3,7 @@ form {
     flex-direction: column;
     align-items: center;
     margin-top: 40px;
+    padding: 0;
 }
 
 label {
@@ -31,9 +32,33 @@ button[type="submit"] {
     margin-bottom: 10px;
 }
 
+.button-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+button.logout{
+    margin-left: 10px;
+    margin-bottom: 20px;
+    background-color:aqua;
+    border: 2px solid black;
 
-button.logout {
-    background-color: ;
+}
+button.create{
+    margin: 10px;
+    background-color:aqua;
+    border: 2px solid black;
+}button.join{
+    margin: 10px;
+    background-color:aqua;
+    border: 2px solid black;
+
+}
+.button-group input {
+    margin-left: 10px;
+    background-color: wheat;
+    border: 2px solid black;
+
 }
 
 .login-container {
@@ -59,6 +84,7 @@ button.logout {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding-left: 0%;
 }
 
 .square {
