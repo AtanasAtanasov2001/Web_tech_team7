@@ -6,13 +6,25 @@ const authMiddleware = require('./middleware/auth');
 
 const router = express.Router();
 
+router.get('/game/:gameId', (req, res, next) => {
+    const gameId = req.params.gameId;
+
+    if (gameId) {
+        gamesDAO.getGameState(gameId)
+            .then(state => res.send(state))
+            .catch(e => res.status(500).send(`${e}`));
+    } else {
+        res.status(400).send("No Game Id");
+    }
+});
+
 router.post('/move', authMiddleware, validateMove, (req, res, next) => {
     // TODO: check if the correct user is moving
     const { move, gameId, token } = req;
 
     if (move.valid) {
         gamesDAO.getGameState(gameId)
-            .then(() => gamesDAO.updateGame(gameId, {fen: move.after, token}))
+            .then(() => gamesDAO.updateGame(gameId, { fen: move.after, token }))
             .then(() => res.send(move))
             .catch(e => res.status(500).send(`${e}`));
     } else {
@@ -27,19 +39,21 @@ router.post('/createGame', authMiddleware, (req, res, next) => {
 
     if (userIdOne && userIdTwo) {
         usersDAO.getUser(userIdOne)
-        .then(() => usersDAO.getUser(userIdTwo))
-        .then(() => gamesDAO.createGame({userIdOne, userIdTwo, fen, token}))
-        .then(gameId => res.send(gameId))
-        .catch(e => res.status(500).send(`${e}`));
+            .then(() => usersDAO.getUser(userIdTwo))
+            .then(() => gamesDAO.createGame({ userIdOne, userIdTwo, fen, token }))
+            .then(gameId => res.send(gameId))
+            .catch(e => res.status(500).send(`${e}`));
     } else {
         res.status(400).send("No userIdOne and userIdTwo!");
     }
 });
 
-router.post('/register', (req, res) => {
-  
+router.get('/games', (req, res, next) => {
 
-
-})
+    gamesDAO.getGames()
+        .then(r => { console.log(r) })
+        .catch(e => res.status(500).send(`${e}`));
+        
+});
 
 module.exports = router;

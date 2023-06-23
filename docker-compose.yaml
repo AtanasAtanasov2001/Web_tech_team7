@@ -39,7 +39,7 @@ services:
     depends_on:
       - web7_chess_db_server
   web7_chess_validations:
-    image: buckflago/web7_chess_validations:2.0.1
+    image: buckflago/web7_chess_validations:latest
     container_name: chess_validations
     ports:
       - "4000:4000"
