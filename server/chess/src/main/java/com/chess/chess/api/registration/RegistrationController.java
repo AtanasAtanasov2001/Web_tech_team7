@@ -1,8 +1,10 @@
 package com.chess.chess.api.registration;
 
+import com.chess.chess.invetory.customer.Customer;
 import com.chess.chess.invetory.customer.repository.CustomerDetailsRequest;
 import com.chess.chess.invetory.customer.repository.CustomerRequest;
 import com.chess.chess.invetory.customer.service.CustomerService;
+import com.chess.chess.security.Token;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -40,5 +42,11 @@ public class RegistrationController
                         "unknown",
                         LocalDate.now(), "unknown"));
 
+    }
+
+    @GetMapping("/{username}")
+    public Long getByUsername(@PathVariable("username") String username)
+    {
+        return customerService.getByUsername(username).getId();
     }
 }

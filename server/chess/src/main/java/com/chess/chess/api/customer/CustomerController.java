@@ -29,7 +29,7 @@ public class CustomerController
         return customerService.getByUsername(username);
     }
 
-    @GetMapping("/token")
+    @PostMapping("/token")
     public Customer getByToken(@RequestBody Token token)
     {
         return customerService.getByToken(token.token);
