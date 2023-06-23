@@ -1,5 +1,5 @@
 # Use a Node 16 base image
-FROM node:16-alpine as builder
+FROM node:18-alpine as builder
 
 # Set the working directory to /app inside the container
 WORKDIR /app
@@ -18,7 +18,7 @@ COPY . .
 RUN npm run build
 
 # Use a lightweight Node image for the production stage
-FROM node:16-alpine
+FROM node:18-alpine
 
 # Set the working directory to /app inside the container
 WORKDIR /app

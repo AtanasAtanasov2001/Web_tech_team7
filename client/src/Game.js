@@ -15,7 +15,7 @@ function Game({ players, room, orientation, cleanup, gameId }) {
         const interval = setInterval(() => {
             console.log('game', gameId)
             var fen_;
-            axios.get("http://localhost:4000/chess/game/" + gameId)
+            axios.get(`chess_validations:4000/chess/game/` + gameId)
                 .then(r => {
                     fen_ = r.data.state;
                     chess.load(fen_);
@@ -28,7 +28,7 @@ function Game({ players, room, orientation, cleanup, gameId }) {
     const makeAMove = useCallback(
         (move) => {
             try {
-                axios.post("http://localhost:4000/chess/move", {fen: chess.fen(), from: move.from, to: move.to, gameId }, { headers: { 'Content-Type': 'application/json', 'Authorization': localStorage.getItem('token') } })
+                axios.post(`chess_validations:4000/chess/move`, {fen: chess.fen(), from: move.from, to: move.to, gameId }, { headers: { 'Content-Type': 'application/json', 'Authorization': localStorage.getItem('token') } })
                     .then(r => {
                         console.log(r);
                         setFen(r.data.after);

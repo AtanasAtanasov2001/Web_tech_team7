@@ -5,7 +5,7 @@ const SocketComponent = () => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    const socket = socketIOClient('http://localhost:4000'); // Replace with your server URL
+    const socket = socketIOClient(`chess_validations:4000`); // Replace with your server URL
 
     // Listen for 'chat message' event
     socket.on('chat message', (message) => {

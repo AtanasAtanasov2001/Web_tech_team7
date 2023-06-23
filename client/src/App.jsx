@@ -6,7 +6,6 @@ import RegistrationForm from "./RegistrationForm";
 import GameList from "./GamesList";
 import "./App.css";
 import axios from "axios";
-
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [showRegistration, setShowRegistration] = useState(false);
@@ -22,7 +21,7 @@ const App = () => {
   }, [token])
 
   const handleLogin = (username, password) => {
-    axios.post("http://localhost:4000/auth/login", { username, password }, { headers: { 'Content-Type': 'application/json' } })
+    axios.post(`chess_validations:4000/auth/login`, { username, password }, { headers: { 'Content-Type': 'application/json' } })
       .then(r => {
         if (r.status === 200) {
           localStorage.setItem("token", "5ZvqN3FRsopaOUrSbXbNtyOIr1DVxr88kxEbAs72Hpw7krgWyjo5VmE4YiBIQ9aGN1TO7hQKkXZ4MJPQSo9a35ml8MmO8usMopNugu8xhHznPsz0iGqszdBCu6JnIx8JeSxsQh031lSwOUwzfnQr0DsXLI8AR4RZPDiXmNqCbVU" + r.data.token);
@@ -36,7 +35,7 @@ const App = () => {
   };
 
   const handleRegistration = (username, password) => {
-    axios.post("http://localhost:4000/auth/register", { username, password }, { headers: { 'Content-Type': 'application/json' } })
+    axios.post(`chess_validations:4000/auth/register`, { username, password }, { headers: { 'Content-Type': 'application/json' } })
       .then(r => {
         if (r.status === 200) {
           alert("Success");
@@ -60,14 +59,14 @@ const App = () => {
     if (createGameInput) {
       var myId;
       var oponentID;
-      axios.get("http://localhost:4000/chess/userByToken", { headers: { 'Content-Type': 'application/json', 'Authorization': localStorage.getItem('token') } })
+      axios.get(`chess_validations:4000/chess/userByToken`, { headers: { 'Content-Type': 'application/json', 'Authorization': localStorage.getItem('token') } })
         .then(mId => {
           myId = mId.data.id;
-          axios.get("http://localhost:4000/chess/userByUsername/" + createGameInput, { headers: { 'Content-Type': 'application/json' } })
+          axios.get(`chess_validations:4000/chess/userByUsername/` + createGameInput, { headers: { 'Content-Type': 'application/json' } })
             .then(opID => {
               oponentID = opID.data.userId;
 
-              axios.post("http://localhost:4000/chess/createGame", { userIdOne:myId, userIdTwo: oponentID }, { headers: { 'Content-Type': 'application/json', 'Authorization': localStorage.getItem('token') } })
+              axios.post(`chess_validations:4000/chess/createGame`, { userIdOne:myId, userIdTwo: oponentID }, { headers: { 'Content-Type': 'application/json', 'Authorization': localStorage.getItem('token') } })
                 .then(r => {
                   setGameId(r.data.gameId);
                   setShowGamePage(true);

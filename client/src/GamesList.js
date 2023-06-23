@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
 function GameList() {
   const [games, setGames] = useState([]);
 
@@ -10,7 +9,7 @@ function GameList() {
 
   const fetchGames = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/chess/games'); // Replace with the endpoint to fetch games from your backend
+      const response = await axios.get(`chess_validations:4000/chess/games`); // Replace with the endpoint to fetch games from your backend
       setGames(response.data);
     } catch (error) {
       console.error('Error fetching games:', error);

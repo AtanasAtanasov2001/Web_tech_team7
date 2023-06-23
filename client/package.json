@@ -12,6 +12,10 @@
     "axios": "^1.4.0",
     "chess.js": "^1.0.0-beta.5",
     "cors": "^2.8.5",
+    "dotenv-webpack": "^8.0.1",
+    "fs": "^0.0.1-security",
+    "os": "^0.1.2",
+    "path": "^0.12.7",
     "react": "^18.2.0",
     "react-chessboard": "^3.1.0",
     "react-dnd": "^16.0.1",
@@ -46,5 +50,10 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:4000/"
+  "proxy": "http://chess_validations:4000/",
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false
+  }
 }
